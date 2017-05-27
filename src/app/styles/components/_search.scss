@@ -1,0 +1,16 @@
+.t-search {
+  background: #636e73;
+  border: 0;
+  color: inherit;
+  transition: 0.4s;
+  height: 100%;
+  text-align: center;
+}
+
+.t-search:focus {
+  outline: none;
+}
+
+.t-search::placeholder {
+  color: inherit;
+}

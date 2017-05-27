@@ -22,7 +22,14 @@ without staging
 to remote server:
   git remote add web10 https://github.com/Saafine/web10.git
   git push –u web10 master
-  git remote -v update
+  git remote -v update => check if up to date
+
+to create a new branch:
+  git checkout -b [name_of_your_new_branch]
+to switch a branch:
+  git checkout [name_of_your_new_branch]
+to view available branches:
+  git branch
 
 Git commands:
   git log

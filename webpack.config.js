@@ -62,7 +62,7 @@ module.exports = {
         }
         // exclude: /node_modules/
       }, {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|woff|woff2|eot|ttf|svg|jpg|gif)$/, // woff, eot, ttf, svg is neccessary to later include fontawesome
         loaders: ['url-loader?limit=10000&name=images/[hash:12].[ext]'],
         exclude: /node_modules/
       }, {
