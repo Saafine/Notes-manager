@@ -20,7 +20,7 @@ without staging
   git commit -am "initial commit"
 
 to remote server:
-  git remote add web10 https://github.com/Saafine/web10.git
+  git remote add web10 https://github.com/Saafine/web13.git
   git push –u web10 master
   git remote -v update => check if up to date
 
@@ -30,6 +30,8 @@ to switch a branch:
   git checkout [name_of_your_new_branch]
 to view available branches:
   git branch
+to merge branch with master:
+  git merge [branch_name]
 
 Git commands:
   git log
