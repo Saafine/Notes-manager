@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 
 import {
     BrowserRouter as Router,
@@ -9,8 +10,11 @@ import {
 
 const Routes = () => (
     <Router>
-      <div>
+      <div class="expand-height">
         <Route exact path="/" component={Navbar} />
+        <div class="main-content">
+          <Sidebar />
+        </div>
       </div>
     </Router>
 );

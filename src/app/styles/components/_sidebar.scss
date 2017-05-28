@@ -1,0 +1,42 @@
+.sidebar-nav {
+  font-size: 16px;
+  font-weight: 400;
+  li {
+    padding: 10px;
+  }
+
+  span {
+    padding-left: 15px;
+  }
+  .active, li:hover {
+    background: $sidebar-active-bg;
+    color: $font-active-sidebar;
+    cursor: pointer;
+  }
+
+  hr {
+    border: 1px solid $main-content-left-border;
+    border-bottom: none;
+  }
+}
+
+.sidebar-resizer {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.t-circle {
+  position: relative;
+  display: block;
+  background: white;
+  margin-top: 1px;
+  height: 14px;
+  width: 14px;
+  border: 1px solid $main-content-left-border;
+  border-radius: 6px;
+  z-index: 10;
+  cursor: col-resize;
+}

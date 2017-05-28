@@ -20,7 +20,7 @@ export default class Search extends React.Component {
   }
 
   renderSearch() {
-    return this.state.searchOpened ? {width: '0px'} : {width: '220px'};
+    return this.state.searchOpened ? {width: '0px'} : {width: '200px'};
   }
 
   render() {

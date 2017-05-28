@@ -2,6 +2,7 @@ html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
   color: $font-main;
   box-sizing: border-box;
+  height: 100%;
 }
 
 * {
@@ -21,3 +22,39 @@ a {
   text-decoration: none;
 }
 
+.main-content {
+  position: relative;
+  display: inline;
+  height:100%;
+  width: 100%;
+}
+
+// Content wrapping is necessary in order to get proper scrollbar length
+.main-content-left-wrap {
+  position: relative;
+  padding-top: $navbar-height; // component wants to be full height, but it has to account for navbar's height
+  height: 100%;
+//  width: 15%;
+  float: left;
+}
+
+.main-content-right-wrap {
+  position: relative;
+  padding-top: $navbar-height; // component wants to be full height, but it has to account for navbar's height
+  height: 100%;
+//  width: 85%;
+  float: left;
+}
+
+.main-content-left {
+  position: relative;
+  height: 100%;
+  border-right: 1px solid $main-content-left-border;
+  background: $main-content-left-bg;
+}
+
+.main-content-right {
+  position: relative;
+  height: 100%;
+  background: $main-content-right-bg;
+}

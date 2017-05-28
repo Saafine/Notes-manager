@@ -1,10 +1,11 @@
 .t-search {
-  background: #636e73;
+  background: $main-content-left-bg;
   border: 0;
   color: inherit;
   transition: 0.4s;
-  height: 100%;
+  height: $navbar-height;
   text-align: center;
+
 }
 
 .t-search:focus {
