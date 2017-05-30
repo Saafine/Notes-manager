@@ -1,0 +1,44 @@
+nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: $navbar-bg;
+  font-size: 16px;
+  font-weight: 400;
+  display: inline-flex;
+  width: 100%;
+  flex-wrap: wrap;
+  height: $navbar-height;
+  line-height: $navbar-height;
+
+  ul {
+    display: inline-flex;
+  }
+
+  li {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .align-left { // margin-right: 0;
+    span {
+      padding-left: 10px;
+    }
+  }
+  .align-right { // margin-left: auto;
+    span {
+      padding-right: 10px;
+    }
+  }
+
+  .active {
+    color: $font-active;
+    border-bottom: 2px solid $font-active;
+  }
+
+  .clickable:hover {
+    color: $font-active;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,85 @@
+.main-content {
+  position: relative;
+  display: inline;
+  height:100%;
+  width: 100%;
+}
+
+// Content wrapping is necessary in order to get proper scrollbar length
+.main-content-left-wrap {
+  position: relative;
+  padding-top: $navbar-height; // component wants to be full height, but it has to account for navbar's height
+  height: 100%;
+  //  width: 15%; // controlled by JS resizer
+  float: left;
+}
+
+.main-content-right-wrap {
+  position: relative;
+  padding-top: $navbar-height; // component wants to be full height, but it has to account for navbar's height
+  height: 100%;
+  //  width: 85%; // controlled by JS resizer
+  float: left;
+}
+
+.main-content-left {
+  position: relative;
+  height: 100%;
+  border-right: 1px solid $main-content-left-border;
+  background: $main-content-left-bg;
+  overflow: hidden;
+}
+
+.main-content-right {
+  position: relative;
+  height: 100%;
+  background: $main-content-right-bg;
+  overflow: hidden;
+}
+
+.main-content-right > div:first-child { // !learn, small hack to style auto created div by switch
+  height: 100%;
+}
+
+.sidebar-nav {
+  font-size: 16px;
+  font-weight: 400;
+  li {
+    padding: 10px;
+  }
+
+  span {
+    padding-left: 15px;
+  }
+  .active, li:hover {
+    background: $sidebar-active-bg;
+    color: $font-active-sidebar;
+    cursor: pointer;
+  }
+
+  hr {
+    border: 1px solid $main-content-left-border;
+    border-bottom: none;
+  }
+}
+
+.sidebar-resizer {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.t-circle {
+  position: relative;
+  display: block;
+  background: white;
+  margin-top: 1px;
+  height: 5px;
+  width: 5px;
+  border: 1px solid $main-content-left-border;
+  border-radius: 6px;
+  z-index: 10;
+  cursor: col-resize;
+}

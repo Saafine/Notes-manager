@@ -1,0 +1,32 @@
+.container-folder {
+  margin-top: 20px;
+  margin-left: 20px;
+  position: relative;
+  width: 100px;
+  float: left;
+  overflow: hidden;
+}
+
+.img-folder {
+  height: 80px;
+  cursor: pointer;
+}
+
+.description-folder {
+  font-size: 14px;
+  height: 33px;
+  width: 100%;
+}
+
+.note-title {
+  background: #d8d9da;
+  padding: 20px;
+  color: $navbar-bg;
+  width: 100%;
+  height: auto!important;
+}
+
+.note-content {
+  padding: 10px;
+  cursor: default;
+}
