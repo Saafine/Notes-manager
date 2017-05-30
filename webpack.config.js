@@ -1,5 +1,6 @@
 // Configuration options at => https://webpack.github.io/docs/configuration.html
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -9,11 +10,13 @@ const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 let plugins = [
-  new HtmlWebpackPlugin({
+  new HtmlWebpackPlugin(
+    {
     template: path.join(__dirname, 'src', 'index.html'),
     hash: true
     // chunks: ['app'] // specifies which .js files to bundle
-  })
+    }
+  )
 
   //new HtmlWebpackPlugin({
   //  template: path.join(__dirname, 'src', 'index.html'),
@@ -40,7 +43,9 @@ const cssLoader = PRODUCTION
 module.exports = {
   devtool: 'cheap-module-source-map',
   context: path.join(__dirname, 'src'),
-  entry: './app/index.js',
+  entry: [
+    './app/index.js'
+  ],
   //entry: {
   //  //app: './app/app.js',
   //  //about: './about/about.js'
@@ -75,6 +80,7 @@ module.exports = {
       }]
   },
   devServer: {
+	historyApiFallback: true, // 404 fallback -> redirect to root if path not found
     contentBase: path.join(__dirname, 'dist'),
     inline: true,
     stats: {

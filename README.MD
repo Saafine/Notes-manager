@@ -2,6 +2,7 @@ Project setup:
 --------------------------------------------------------------------
 !update this:
 # npm scripts
+# base64 img hasher is buggy and prevents image caching
 
 --------------------------------------------------------------------
 Init commands:

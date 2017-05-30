@@ -6,7 +6,6 @@ require('./styles/main.scss');
 require('./vendor/fonts-awesome/font-awesome.min.css');
 
 render(
-    <Routes />,
-    document.getElementById('app')
+   <Routes />,
+   document.getElementById('app')
 );
-

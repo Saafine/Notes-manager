@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from './library/Search';
-
+import {active} from './library/helpers';
+import { Link } from 'react-router-dom';
 // Description:
 // Navbar with expanding search input
 
@@ -14,9 +15,11 @@ const Navbar = () => {
           <li class="clickable hidden-xs-down">
             <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
           </li>
-          <li class="clickable active">
-            <i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs-down">View All</span>
-          </li>
+          <Link to="/">
+            <li class={active('/') + ' clickable'}>
+              <i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs-down">View All</span>
+            </li>
+          </Link>
           <li class="hidden-sm-down">
           /currentDirectory
           </li>
