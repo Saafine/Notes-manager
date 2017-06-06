@@ -18,15 +18,59 @@
   width: 100%;
 }
 
+.note-wrapper {
+  height: 100%;
+  position: relative;
+}
+
 .note-title {
   background: #d8d9da;
-  padding: 20px;
+  padding: 10px;
   color: $navbar-bg;
   width: 100%;
-  height: auto!important;
+}
+
+.note-title-textinput {
+  background: none;
+  border: 0;
+  padding: 10px;
+  width: 100%;
+  color: $font-active-sidebar;
+  cursor: default;
+}
+
+.note-title-textinput:focus, .note-text-textarea:focus {
+  outline: none;
+}
+
+.note-text-textarea {
+  background: none;
+  border: 0;
+  padding: 10px;
+  width: 100%;
+  color: $font-main;
+  resize: none;
+  cursor: default;
+}
+
+.note-text-textarea::placeholder {
+  color: $font-main;
 }
 
 .note-content {
+  position: relative;
   padding: 10px;
   cursor: default;
+}
+
+.note-save-icon {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  bottom: 25px;
+  right: 25px;
+
+  img {
+    cursor: pointer;
+  }
 }

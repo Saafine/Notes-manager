@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar'; // !todo cleanup it actually doesnt route anything
 import MainContent from './components/MainContent';
 
 import {
@@ -11,7 +11,7 @@ import {
 const Routes = () => (
     <Router>
       <div class="expand-height">
-        <Route path="/" component={Navbar} />
+          <Navbar />
           <MainContent />
       </div>
     </Router>

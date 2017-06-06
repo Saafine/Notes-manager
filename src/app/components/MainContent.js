@@ -1,8 +1,13 @@
 import React from 'react';
 import LeftSection from './LeftSection';
 import RightSection from './RightSection';
+import NoteOptions from './NoteOptions';
 
-export default class MainContent extends React.Component {
+import { Route, Link, Switch } from 'react-router-dom' // !todo cleanup
+
+
+export default
+class MainContent extends React.Component {
   constructor() {
     super();
     this.allowResizing = this.allowResizing.bind(this);
@@ -36,12 +41,12 @@ export default class MainContent extends React.Component {
     e.preventDefault(); // prevent content selection
     let mouseX = e.clientX;
     let w = window.innerWidth;
-    let newLeftWidth = mouseX/w*100;
+    let newLeftWidth = mouseX / w * 100;
 
     // set min & max values
     if (newLeftWidth < 10) {
       newLeftWidth = 10;
-    }else if (newLeftWidth > 80){
+    } else if (newLeftWidth > 80) {
       newLeftWidth = 80;
     }
 
@@ -50,10 +55,10 @@ export default class MainContent extends React.Component {
     this.setState(() => {
       return {
         leftWidth: {
-          width: newLeftWidth+'%'
+          width: newLeftWidth + '%'
         },
         rightWidth: {
-          width: newRightWidth+'%'
+          width: newRightWidth + '%'
         }
       }
     });
@@ -70,20 +75,21 @@ export default class MainContent extends React.Component {
           <div class="main-content">
             <div class="main-content-left-wrap" style={this.state.leftWidth}>
               <div class="main-content-left">
-                  <div class="sidebar-resizer">
-                    <span class="t-circle"></span>
-                    <span class="t-circle"></span>
-                    <span class="t-circle"></span>
-                    <span class="t-circle"></span>
-                  </div>
-                    <LeftSection />
+                <div class="sidebar-resizer">
+                  <span class="t-circle"></span>
+                  <span class="t-circle"></span>
+                  <span class="t-circle"></span>
+                  <span class="t-circle"></span>
                 </div>
-            </div>
-          <div class="main-content-right-wrap" style={this.state.rightWidth}>
-              <div class="main-content-right">
-                  <RightSection />
+                <LeftSection />
               </div>
-          </div>
+            </div>
+            <div class="main-content-right-wrap" style={this.state.rightWidth}>
+              <div class="main-content-right">
+                <RightSection />
+                <NoteOptions />
+              </div>
+            </div>
           </div>
         </div>
     );
