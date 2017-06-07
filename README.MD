@@ -14,8 +14,8 @@ Init commands:
 --------------------------------------------------------------------
 GIT
 to remote server:
-  [!] git checkout master // change branch to master
   [!] git push -u web13 BRANCHname // push branch to remote repository
+  [!] git checkout master // change branch to master
   [!] git merge BRANCHname // merge branch with master
   [!] git push -u web13 master // push new master to remote
   git push –u web13 master
