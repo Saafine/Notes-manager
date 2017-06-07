@@ -13,17 +13,20 @@ Init commands:
 
 --------------------------------------------------------------------
 GIT
+to remote server:
+  [!] git checkout master // change branch to master
+  [!] git push -u web13 BRANCHname // push branch to remote repository
+  [!] git merge BRANCHname // merge branch with master
+  [!] git push -u web13 master // push new master to remote
+  git push –u web13 master
+  git remote -v update => check if up to date
+
 with staging:
   git add .
   git commit -m "initial commit"
 
 without staging
   git commit -am "initial commit"
-
-to remote server:
-  git remote add web10 https://github.com/Saafine/web13.git
-  git push –u web10 master
-  git remote -v update => check if up to date
 
 to create a new branch:
   git checkout -b [name_of_your_new_branch]

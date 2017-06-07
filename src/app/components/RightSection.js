@@ -19,6 +19,10 @@ class RightSection extends React.Component {
     return (
         <Switch>
           <Route
+              exact path="/:folder/addNote"
+              component={AddNote}
+          />
+          <Route
               exact path="/:folder/:id"
               render={({match}) => (
                   <AddNote noteID={match.params.id}/>

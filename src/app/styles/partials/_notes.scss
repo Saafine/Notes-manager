@@ -63,7 +63,7 @@
   cursor: default;
 }
 
-.note-save-icon {
+.note-icon {
   position: absolute;
   height: 60px;
   width: 60px;
@@ -72,5 +72,6 @@
 
   img {
     cursor: pointer;
+    height: 100%;
   }
 }
