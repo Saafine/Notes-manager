@@ -3,10 +3,8 @@ import Navbar from './components/Navbar'; // !todo cleanup it actually doesnt ro
 import MainContent from './components/MainContent';
 
 import {
-    BrowserRouter as Router,
-    Route,
-    Link
-    } from 'react-router-dom';
+    BrowserRouter as Router
+} from 'react-router-dom';
 
 const Routes = () => (
     <Router>

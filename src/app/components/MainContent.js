@@ -3,12 +3,11 @@ import LeftSection from './LeftSection';
 import RightSection from './RightSection';
 import NoteOptions from './NoteOptions';
 
-import { Route, Link, Switch } from 'react-router-dom' // !todo cleanup
-
+import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
 
 export default
 class MainContent extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.allowResizing = this.allowResizing.bind(this);
     this.startResize = this.startResize.bind(this);
@@ -21,23 +20,23 @@ class MainContent extends React.Component {
       rightWidth: {
         width: '85%'
       }
-    }
+    };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.resizeElementTag[0].addEventListener('mousedown', this.allowResizing, false);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.resizeElementTag[0].removeEventListener('mousedown', this.allowResizing, false);
   }
 
-  allowResizing() {
+  allowResizing () {
     window.addEventListener('mousemove', this.startResize, false);
     window.addEventListener('mouseup', this.stopResize, false);
   }
 
-  startResize(e) {
+  startResize (e) {
     e.preventDefault(); // prevent content selection
     let mouseX = e.clientX;
     let w = window.innerWidth;
@@ -60,38 +59,38 @@ class MainContent extends React.Component {
         rightWidth: {
           width: newRightWidth + '%'
         }
-      }
+      };
     });
   }
 
-  stopResize() {
+  stopResize () {
     window.removeEventListener('mousemove', this.startResize, false);
     window.removeEventListener('mouseup', this.stopResize, false);
   }
 
-  render() {
+  render () {
     return (
-        <div class="expand-height">
-          <div class="main-content">
-            <div class="main-content-left-wrap" style={this.state.leftWidth}>
-              <div class="main-content-left">
-                <div class="sidebar-resizer">
-                  <span class="t-circle"></span>
-                  <span class="t-circle"></span>
-                  <span class="t-circle"></span>
-                  <span class="t-circle"></span>
-                </div>
-                <LeftSection />
+      <div class="expand-height">
+        <div class="main-content">
+          <div class="main-content-left-wrap" style={this.state.leftWidth}>
+            <div class="main-content-left">
+              <div class="sidebar-resizer">
+                <span class="t-circle"></span>
+                <span class="t-circle"></span>
+                <span class="t-circle"></span>
+                <span class="t-circle"></span>
               </div>
+              <LeftSection />
             </div>
-            <div class="main-content-right-wrap" style={this.state.rightWidth}>
-              <div class="main-content-right">
-                <RightSection />
-                <NoteOptions />
-              </div>
+          </div>
+          <div class="main-content-right-wrap" style={this.state.rightWidth}>
+            <div class="main-content-right">
+              <RightSection />
+              <NoteOptions />
             </div>
           </div>
         </div>
+      </div>
     );
   }
 }
