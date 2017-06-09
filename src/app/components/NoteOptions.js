@@ -20,7 +20,7 @@ class NoteOptions extends React.Component {
     let currentFolder = 0; // GET GLOBAL STATE FOLDER
     let currentID = 0; // GET GLOBAL STATE ID
     let userID = 0; // GET GLOBAL USER ID
-    let origin = window.location.origin; // !todo find better way
+    let origin = window.location.origin; // !todo find better way, same in OpenNote
 
     axios.post(origin + '/php/saveNote.php', {
       userID: userID,

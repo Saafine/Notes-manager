@@ -1,13 +1,26 @@
-export const changeName = (name) => {
+export const changeNoteTitle = (payload) => {
   return {
-    type: 'NAME_CHANGE_NAME',
-    name // ES6 name:name
+    type: 'NOTE_CHANGE_TITLE',
+    payload // ES6 name:name
   };
 };
 
-export const changeNoteContent = (content) => {
+export const changeNoteContent = (payload) => {
   return {
     type: 'NOTE_CHANGE_CONTENT',
-    content // ES6 name:name
+    payload
+  };
+};
+
+export const updateNoteID = (payload) => {
+  return {
+    type: 'NOTE_UPDATE_ID',
+    payload
+  };
+};
+
+export const toggleModal = () => {
+  return {
+    type: 'MODAL_TOGGLE'
   };
 };

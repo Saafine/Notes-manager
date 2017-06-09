@@ -1,12 +1,17 @@
 import React from 'react';
-import { userFolders } from './userFolders';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
-
+import { Link } from 'react-router-dom'; // !todo cleanup
+import { userFolders, userFoldersAJAX } from './userFolders';
 let folder = require('.././vendor/icons/document-green.svg');
 
-export default
-class ShowDocuments extends React.Component {
+export default class ListDocuments extends React.Component {
+  componentWillMount () {
+    this.fetchNotesList(); // !todo should be replaced by reading state
+  }
+
+  fetchNotesList () {
+
+  }
+
   renderNotes () {
     let currentDir = location.pathname.replace(/\//g, ''); // remove slash "/" from current url location
     let prevFilteredNotes = JSON.parse(JSON.stringify(userFolders)); // deep cloning the object to sort without mutating original data
@@ -36,7 +41,7 @@ class ShowDocuments extends React.Component {
     }
 
     // Loop through every folder and inside this folder, loop through every document
-    let notesList = newFilteredNotes.map((notes) => {
+    return newFilteredNotes.map((notes) => {
       return (
         notes.content.map((content) => {
           return (
@@ -50,7 +55,6 @@ class ShowDocuments extends React.Component {
         })
       );
     });
-    return notesList;
   }
 
   // !todo cleanup

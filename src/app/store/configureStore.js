@@ -1,10 +1,10 @@
 const redux = require('redux');
-const {nameReducer, noteReducer} = require('.././reducers/');
+const {modalReducer, noteReducer} = require('.././reducers/');
 
 export let configure = () => {
   let reducer = redux.combineReducers({
-    name: nameReducer,
-    note: noteReducer
+    note: noteReducer,
+    modal: modalReducer
   });
 
   let store = redux.createStore(reducer, redux.compose(

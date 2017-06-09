@@ -2,32 +2,29 @@ import React from 'react';
 
 import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
 import { userFolders } from './userFolders';
-import AddNote from './AddNote';
-import ShowDocuments from './ShowDocuments';
+import OpenNote from './OpenNote';
+import ListDocuments from './ListDocuments';
 
 import { Scrollbars } from 'react-custom-scrollbars';
 import { lerum } from './fakecontent';
 
-let folder = require('.././vendor/icons/document-green.svg');
-
-export default
-class RightSection extends React.Component {
+export default class RightSection extends React.Component {
   render () {
     return (
       <Switch>
         <Route
           exact path="/:folder/addNote"
-          component={AddNote}
+          component={OpenNote}
         />
         <Route
           exact path="/:folder/:id"
           render={({match}) => (
-            <AddNote noteFolder={match.params.folder} noteID={match.params.id}/>
+            <OpenNote noteFolder={match.params.folder} noteID={match.params.id}/>
           )}
         />
         <Route
           path="/"
-          component={ShowDocuments}
+          component={ListDocuments}
         />
       </Switch>
     );

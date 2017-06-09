@@ -1,3 +1,18 @@
+import axios from 'axios';
+
+const userFoldersAJAX = () => {
+  return axios.post('http://saafine.pe.hu/php/fetchFolders.php', { // !todo fix this
+    userID: '0' // !todo fix this
+  })
+    .then(function (response) {
+      console.log('data fetched', response.data);
+      return (response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
 const userFolders = [
   {
     id: '0',
@@ -86,6 +101,6 @@ const userFolders = [
 ];
 
 module.exports = {
-  userFolders: userFolders
+  userFolders: userFolders,
+  userFoldersAJAX: userFoldersAJAX
 };
-

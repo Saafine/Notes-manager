@@ -12,9 +12,9 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
 let plugins = [
   new HtmlWebpackPlugin(
     {
-    template: path.join(__dirname, 'src', 'index.html'),
-    hash: true
-    // chunks: ['app'] // specifies which .js files to bundle
+      template: path.join(__dirname, 'src', 'index.html'),
+      hash: true
+      // chunks: ['app'] // specifies which .js files to bundle
     }
   )
 
@@ -28,17 +28,20 @@ let plugins = [
 
 // !update, check if it works in production
 if (PRODUCTION) {
+  console.log('I SHOULD BE IN PRODUCTION');
   plugins.push(new UglifyJSPlugin());
   plugins.push(new ExtractTextPlugin('style-[contenthash:10].css'));
+} else {
+  console.log('I SHOUILD BE IN DEV');
 }
 
 // !update, check if it works in production
 const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
 const cssLoader = PRODUCTION
-    ? ExtractTextPlugin.extract({
-      loader: 'css-loader?minimize&localIdentName=' + cssIdentifier
-    })
-    : ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
+  ? ExtractTextPlugin.extract({
+    loader: 'css-loader?minimize&localIdentName=' + cssIdentifier
+  })
+  : ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -80,7 +83,7 @@ module.exports = {
       }]
   },
   devServer: {
-	historyApiFallback: true, // 404 fallback -> redirect to root if path not found
+    historyApiFallback: true, // 404 fallback -> redirect to root if path not found
     contentBase: path.join(__dirname, 'dist'),
     inline: true,
     stats: {

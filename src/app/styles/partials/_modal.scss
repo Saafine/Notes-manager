@@ -36,6 +36,7 @@
 
 /* -- close button -- */
 .rodal-close {
+  display: none; // no need for close button, just click the overlay
   position: absolute;
   cursor: pointer;
   top: 16px;
