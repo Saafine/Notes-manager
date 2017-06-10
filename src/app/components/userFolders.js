@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+class userFoldersCLASS {
+  constructor () {
+    this.inside = [];
+  }
+
+  fetchNewData (arg) {
+    this.inside = arg;
+  }
+}
+
 const userFoldersAJAX = () => {
   return axios.post('http://saafine.pe.hu/php/fetchFolders.php', { // !todo fix this
     userID: '0' // !todo fix this
@@ -102,5 +112,6 @@ const userFolders = [
 
 module.exports = {
   userFolders: userFolders,
-  userFoldersAJAX: userFoldersAJAX
+  userFoldersAJAX: userFoldersAJAX,
+  userFoldersCLASS: userFoldersCLASS
 };

@@ -17,13 +17,6 @@ let plugins = [
       // chunks: ['app'] // specifies which .js files to bundle
     }
   )
-
-  //new HtmlWebpackPlugin({
-  //  template: path.join(__dirname, 'src', 'index.html'),
-  //  hash: true,
-  //  filename: 'about.html',
-  //  chunks: ['about']
-  //})
 ];
 
 // !update, check if it works in production
@@ -32,7 +25,7 @@ if (PRODUCTION) {
   plugins.push(new UglifyJSPlugin());
   plugins.push(new ExtractTextPlugin('style-[contenthash:10].css'));
 } else {
-  console.log('I SHOUILD BE IN DEV');
+  console.log('I SHOULD BE IN DEV'); // !todo fix me
 }
 
 // !update, check if it works in production
@@ -47,13 +40,9 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   context: path.join(__dirname, 'src'),
   entry: [
+    'babel-polyfill', // this is required for redux-saga to work
     './app/index.js'
   ],
-  //entry: {
-  //  //app: './app/app.js',
-  //  //about: './about/about.js'
-  //
-  //},
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js'

@@ -2,33 +2,21 @@ import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Link } from 'react-router-dom';
 import { active } from './library/helpers';
-import { userFoldersAJAX } from './userFolders';
 
-export default class LeftSection extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      folderList: []
-    };
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { startDataFetch } from '../actions';
+
+class LeftSection extends React.Component {
+  componentWillMount () {
+    this.props.getDataFetch('0');
   }
 
-  componentWillMount () {
-    let startFetching = new Promise((resolve, reject) => {
-      resolve(userFoldersAJAX());
-    });
-
-    startFetching.then((resolve) => {
-      this.setState(() => {
-        return {
-          folderList: resolve
-        };
-      });
-    });
-  };
-
   renderFolders () {
-    console.log('redering left section');
-    return this.state.folderList.map((folders, index) => {
+    if (!this.props.gUserFolders) {
+      return <div>Loading folders</div>;
+    }
+    return this.props.gUserFolders.map((folders, index) => {
       let toggleActive = active('/' + folders.link); // access helpers module from library and append 'active' class if current path location matches folder's link property
       return (
         <Link to={'/' + folders.link} key={index}>
@@ -74,3 +62,20 @@ export default class LeftSection extends React.Component {
     );
   }
 }
+
+// enable reading redux states
+function mapStateToProps (state) {
+  return {
+    gUserFolders: state.data.userFolders
+  };
+}
+
+// enable using action dispatches
+function matchDispatchToProps (dispatch) {
+  return bindActionCreators(
+    {
+      getDataFetch: startDataFetch
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(LeftSection);

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const changeNoteTitle = (payload) => {
   return {
     type: 'NOTE_CHANGE_TITLE',
@@ -24,3 +26,13 @@ export const toggleModal = () => {
     type: 'MODAL_TOGGLE'
   };
 };
+
+// Asynchronous data actions
+// -------------------------------------------------
+export const startDataFetch = (payload) => { // payload is userID
+  return {
+    type: 'START_DATA_FETCH',
+    payload
+  };
+};
+// #################################################

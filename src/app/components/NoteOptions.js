@@ -3,7 +3,7 @@ import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeNoteContent, changeName } from '../actions';
+import { changeNoteContent } from '../actions';
 
 let addIcon = require('.././vendor/icons/add-green.svg');
 let saveIcon = require('.././vendor/icons/save-green.svg');
@@ -101,7 +101,6 @@ class NoteOptions extends React.Component {
 // enable reading redux states
 function mapStateToProps (state) {
   return {
-    globalName: state.name,
     globalNoteTitle: state.note.title,
     globalNoteContent: state.note.content,
     globalNoteID: state.note.ID
@@ -112,7 +111,6 @@ function mapStateToProps (state) {
 function matchDispatchToProps (dispatch) {
   return bindActionCreators(
     {
-      getChangeName: changeName,
       getChangeNoteContent: changeNoteContent
     }, dispatch);
 }

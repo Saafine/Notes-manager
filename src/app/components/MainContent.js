@@ -2,11 +2,9 @@ import React from 'react';
 import LeftSection from './LeftSection';
 import RightSection from './RightSection';
 import NoteOptions from './NoteOptions';
+import Data from './Data';
 
-import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
-
-export default
-class MainContent extends React.Component {
+export default class MainContent extends React.Component {
   constructor () {
     super();
     this.allowResizing = this.allowResizing.bind(this);
@@ -80,6 +78,7 @@ class MainContent extends React.Component {
                 <span class="t-circle"></span>
                 <span class="t-circle"></span>
               </div>
+              <Data />
               <LeftSection />
             </div>
           </div>
