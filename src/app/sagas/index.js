@@ -9,7 +9,8 @@ export function * fetchDataAsync (action) {
     // 1 arg-> function to use, 2nd -> parameters, 3nd -> objects to pass
     const response = yield call(axios.post, 'http://saafine.pe.hu/php/fetchFolders.php', {userID: action.payload}); // userID -> expected by PHP, payload -> prop passed from inital action
     // put -> dispatches an action with information from response
-    yield put({type: 'COMPLETE_DATA_FETCH', payload: response.data});
+    let jsonResponse = JSON.parse(response.data);
+    yield put({type: 'COMPLETE_DATA_FETCH', payload: jsonResponse});
   } catch (e) {
     // act on the error
     yield put({type: 'FAILED_DATA_FETCH'});

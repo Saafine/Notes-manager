@@ -2,31 +2,30 @@ import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Link } from 'react-router-dom';
 import { active } from './library/helpers';
-
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { startDataFetch } from '../actions';
 
 class LeftSection extends React.Component {
-  componentWillMount () {
-    this.props.getDataFetch('0');
-  }
-
   renderFolders () {
     if (!this.props.gUserFolders) {
       return <div>Loading folders</div>;
     }
-    return this.props.gUserFolders.map((folders, index) => {
-      let toggleActive = active('/' + folders.link); // access helpers module from library and append 'active' class if current path location matches folder's link property
-      return (
-        <Link to={'/' + folders.link} key={index}>
-          <li class={toggleActive}>
-            <i class="fa fa-folder" aria-hidden="true"></i>
-            <span>{folders.title}</span>
-          </li>
-        </Link>
+
+    let folders = [];
+    let fTitle;
+    let toggleActive;
+    for (let folderID in this.props.gUserFolders) {
+      fTitle = this.props.gUserFolders[folderID].title;
+      toggleActive = active('/' + folderID); // access helpers module from library and append 'active' class if current path location matches folder's link property
+      folders.push(
+            <Link to={'/' + folderID} key={folderID}>
+              <li class={toggleActive}>
+                <i class="fa fa-folder" aria-hidden="true"></i>
+                <span>{fTitle}</span>
+              </li>
+            </Link>
       );
-    });
+    }
+    return folders;
   }
 
   render () {
@@ -70,12 +69,7 @@ function mapStateToProps (state) {
   };
 }
 
-// enable using action dispatches
-function matchDispatchToProps (dispatch) {
-  return bindActionCreators(
-    {
-      getDataFetch: startDataFetch
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(LeftSection);
+// !todo temp solution, see https://github.com/reactjs/react-redux/blob/v4.0.0/docs/troubleshooting.md#my-views-arent-updating-when-something-changes-outside-of-redux
+export default connect(mapStateToProps, null, null, {
+  pure: false
+})(LeftSection);

@@ -1,60 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // !todo cleanup
-import { userFolders, userFoldersAJAX } from './userFolders';
+import { connect } from 'react-redux';
 let folder = require('.././vendor/icons/document-green.svg');
 
-export default class ListDocuments extends React.Component {
-  componentWillMount () {
-    this.fetchNotesList(); // !todo should be replaced by reading state
-  }
+// import { userFolders, userFoldersAJAX } from './userFolders';
 
-  fetchNotesList () {
-
-  }
-
+class ListDocuments extends React.Component {
   renderNotes () {
-    let currentDir = location.pathname.replace(/\//g, ''); // remove slash "/" from current url location
-    let prevFilteredNotes = JSON.parse(JSON.stringify(userFolders)); // deep cloning the object to sort without mutating original data
-    let newFilteredNotes;
+    let gUserFolders = this.props.gUserFolders;
+    let folderID = this.props.folderID;
+    let docsObj = gUserFolders[folderID]['documents'];
+    let docs = [];
+    let docTitle;
 
-    // hide deleted files, if user is not looking at trash folder
-    // &&
-    // show all files if user is looking at "/" home directory
-    if (currentDir !== 'trash') {
-      newFilteredNotes = prevFilteredNotes.filter((folder) => {
-        return folder.link !== 'trash';
-      });
-    }
-
-    // return notes that fit current directory
-    if (currentDir !== '' && currentDir !== 'recent') {
-      newFilteredNotes = prevFilteredNotes.filter((folder) => {
-        return (folder.link === currentDir);
-      });
-    }
-
-    // sort notes if category current dir is 'recent'
-    if (currentDir === 'recent') {
-      newFilteredNotes = newFilteredNotes.sort((a, b) => {
-        return a.timestamp - b.timestamp;
-      });
-    }
-
-    // Loop through every folder and inside this folder, loop through every document
-    return newFilteredNotes.map((notes) => {
-      return (
-        notes.content.map((content) => {
-          return (
-            <div class="container-folder" key={content.noteID}>
-              <Link to={'/' + notes.link + '/' + content.noteID}>
-                <img class="img-folder" src={folder}/>
-                <div class="description-folder">{content.noteTitle}</div>
-              </Link>
-            </div>
-          );
-        })
+    for (let documentID in docsObj) {
+      docTitle = docsObj[documentID]['title'];
+      docs.push(
+        <div class="container-folder" key={documentID}>
+          <Link to={'/' + folderID + '/' + documentID}>
+            <img class="img-folder" src={folder}/>
+            <div class="description-folder">{docTitle}</div>
+          </Link>
+        </div>
       );
-    });
+    }
+
+    return docs;
   }
 
   // !todo cleanup
@@ -66,3 +37,15 @@ export default class ListDocuments extends React.Component {
     );
   }
 }
+
+// enable reading redux states
+function mapStateToProps (state) {
+  return {
+    gUserFolders: state.data.userFolders
+  };
+}
+
+// !todo temp solution, see https://github.com/reactjs/react-redux/blob/v4.0.0/docs/troubleshooting.md#my-views-arent-updating-when-something-changes-outside-of-redux
+export default connect(mapStateToProps, null, null, {
+  pure: false
+})(ListDocuments);

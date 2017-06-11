@@ -1,15 +1,10 @@
 import React from 'react';
-
-import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
-import { userFolders } from './userFolders';
+import { Route, Switch } from 'react-router-dom'; // !todo cleanup
 import OpenNote from './OpenNote';
 import ListDocuments from './ListDocuments';
 
-import { Scrollbars } from 'react-custom-scrollbars';
-import { lerum } from './fakecontent';
-
 export default class RightSection extends React.Component {
-  render () {
+  render () { // !todo compress routes
     return (
       <Switch>
         <Route
@@ -23,15 +18,12 @@ export default class RightSection extends React.Component {
           )}
         />
         <Route
-          path="/"
-          component={ListDocuments}
+          path="/:folder"
+          render={({match}) => (
+            <ListDocuments folderID={match.params.folder}/>
+          )}
         />
       </Switch>
     );
   }
 }
-
-//<Route
-//    exact path="/add-note"
-//    component={AddNote}
-///>

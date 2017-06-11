@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const changeNoteTitle = (payload) => {
   return {
     type: 'NOTE_CHANGE_TITLE',
@@ -27,7 +25,7 @@ export const toggleModal = () => {
   };
 };
 
-// Asynchronous data actions
+// Asynchronous data actions handled by redux saga
 // -------------------------------------------------
 export const startDataFetch = (payload) => { // payload is userID
   return {

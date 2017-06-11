@@ -36,36 +36,6 @@ class NoteOptions extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-
-    // console.log(this.props.globalNoteID);
-    // console.log(this.props.globalNoteTitle);
-    // console.log(this.props.globalNoteContent);
-    // console.log(this.props.globalNoteID);
-    // let changeMyName = new Promise((resolve) => {
-    // this.props.getChangeName('abc');
-    //   this.props.getChangeNoteContent('new content');
-    //   resolve('success');
-    // });
-
-    // changeMyName.then(() => {
-    // console.log(this.props.globalName);
-    // console.log(this.props.globalNoteTitle);
-    // console.log(this.props.globalNoteContent);
-    // console.log(this.props.globalNoteID);
-    // });
-
-    // axios.post('/saveNote.php', {
-    //   noteTitle: this.state.noteTitle,
-    //   noteContent: this.state.noteContent,
-    //   noteID: this.state.noteID,
-    //   timestamp: Date.now()
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }
 
   render () {

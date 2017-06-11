@@ -6,34 +6,31 @@ import React from 'react';
 // It expands and closes on search button click
 
 export default class Search extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       searchOpened: 0
     };
   }
 
-  toggleSearch() {
+  toggleSearch () {
     this.setState(() => {
-      return { searchOpened: !this.state.searchOpened};
+      return {searchOpened: !this.state.searchOpened};
     });
   }
 
-  renderSearch() {
+  renderSearch () {
     return this.state.searchOpened ? {width: '0px'} : {width: '200px'};
   }
 
-  render() {
+  render () {
     return (
-        <wrap>
-          <a onClick={() => this.toggleSearch()}>
-            <span><i class="fa fa-search" aria-hidden="true"></i></span>
-          </a>
-          <input style={this.renderSearch()} class="t-search" type="text"  placeholder="Search..."/>
-        </wrap>
+      <div>
+        <a onClick={() => this.toggleSearch()}>
+          <span><i class="fa fa-search" aria-hidden="true"></i></span>
+        </a>
+        <input style={this.renderSearch()} class="t-search" type="text" placeholder="Search..."/>
+      </div>
     );
   }
 }
-
-
-

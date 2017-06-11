@@ -28,7 +28,6 @@ const userFolders = [
     id: '0',
     title: 'Trash',
     link: 'trash',
-    timestamp: '0',
     content: [
       {
         noteID: '9',
@@ -41,7 +40,6 @@ const userFolders = [
     id: '1',
     title: 'Cats',
     link: 'cats',
-    timestamp: '2',
     content: [
       {
         noteID: '1',
@@ -64,7 +62,6 @@ const userFolders = [
     id: '2',
     title: 'Mouses',
     link: 'mouses',
-    timestamp: '1',
     content: [
       {
         noteID: '2',
@@ -87,7 +84,6 @@ const userFolders = [
     id: '3',
     title: 'Dogs',
     link: 'dogs',
-    timestamp: '3',
     content: [
       {
         noteID: '7',
@@ -105,7 +101,6 @@ const userFolders = [
     id: '4',
     title: 'Good things',
     link: 'good-things',
-    timestamp: '4',
     content: []
   }
 ];

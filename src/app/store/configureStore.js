@@ -1,27 +1,14 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { routerMiddleware } from 'react-router-redux'; // !todo needed?
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { modalReducer, noteReducer, dataReducer } from '.././reducers/';
+import reducer from '.././reducers';
 import rootSaga from '.././sagas';
 
-export default function createStoreWithMiddleware (history, data) {
-  // MY CODE
-  let reducer = combineReducers({ // !todo reducers should be combined here
-    note: noteReducer,
-    modal: modalReducer,
-    data: dataReducer
-  });
-
-  // sync dispatched route action tree history !todo needed?
-  const reduxRouterMiddleware = routerMiddleware(history);
-
+export default function createStoreWithMiddleware () {
   const sagaMiddleware = createSagaMiddleware();
-  const middleware = [reduxRouterMiddleware, sagaMiddleware];
+  const middleware = [sagaMiddleware]; // add more middleware here
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const store = createStore(reducer, data, composeEnhancers(
-    applyMiddleware(...middleware),
-  ));
+  const store = createStore(reducer, composeEnhancers(applyMiddleware(...middleware)));
 
   sagaMiddleware.run(rootSaga);
 
