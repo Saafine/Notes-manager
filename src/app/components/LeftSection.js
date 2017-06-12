@@ -15,6 +15,7 @@ class LeftSection extends React.Component {
     let toggleActive;
     for (let folderID in this.props.gUserFolders) {
       fTitle = this.props.gUserFolders[folderID].title;
+      // !todo change updating to state
       toggleActive = active('/' + folderID); // access helpers module from library and append 'active' class if current path location matches folder's link property
       folders.push(
             <Link to={'/' + folderID} key={folderID}>
@@ -28,7 +29,7 @@ class LeftSection extends React.Component {
     return folders;
   }
 
-  render () {
+  render () { // !todo add trash
     return (
       <Scrollbars
         autoHide={true}
@@ -45,12 +46,6 @@ class LeftSection extends React.Component {
               <li class={active('/recent')}>
                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                 <span>Recent</span>
-              </li>
-            </Link>
-            <Link to="/trash">
-              <li class={active('/trash')}>
-                <i class="fa fa-trash" aria-hidden="true"></i>
-                <span>Trash</span>
               </li>
             </Link>
             <hr/>

@@ -1,6 +1,7 @@
 <?php
-  require('connect.php');
-
+  require_once('connect.php');
+  require('dangerouslyAllowCORS.php');
+  require('queryDbData.php'); // !todo double connect required, fix?
   // connect to db
   $db = new Db();
 
@@ -10,21 +11,25 @@
   // Quote and escape form submitted values
   // $noteTitle = $db -> quote($data["noteTitle"]); !todo escape submitted values
 
-  $noteTitle =  $data["noteTitle"];
-  $noteContent = $data["noteContent"];
+  $title =  $data["title"];
+  $content = $data["content"];
   $noteID =  $data["noteID"];
+  $folderID =  $data["folderID"];
   $timestamp = $data["timestamp"];
-  $user = $data["userID"];
+  $userID = $data["userID"];
 
-  $query_column_names="title, content, timestamp, user";
-  $query_columns_values="'$noteTitle','$noteContent', '$timestamp', '$user'";
-  $query_merged="INSERT INTO notes ($query_column_names) VALUES ($query_columns_values)";
+  $table_name = 'notes';
 
-  $result = $db -> query($query_merged);
-
-  if ($result) {
-    echo 'Insertion successful';
-  }else {
-    echo 'Insertion failed';
+  if ($noteID === 'addNote') {
+      $query_column_names="title, content, timestamp, user, folderID";
+      $query_columns_values="'$title','$content', '$timestamp', '$userID', '$folderID'";
+      $query_merged="INSERT INTO $table_name ($query_column_names) VALUES ($query_columns_values)";
+      $insert = $db -> query($query_merged);
+  } else {
+     $query_update_merged="UPDATE $table_name SET title='$title', content='$content', timestamp='$timestamp' WHERE id=$noteID AND user='$userID'";
+     $select = $db -> query($query_update_merged);
   }
+
+  $data = getUserData($userID);
+  echo $data;
 ?>

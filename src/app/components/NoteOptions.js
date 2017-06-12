@@ -3,7 +3,7 @@ import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeNoteContent } from '../actions';
+import { changeNoteContent, startNoteSave } from '../actions';
 
 let addIcon = require('.././vendor/icons/add-green.svg');
 let saveIcon = require('.././vendor/icons/save-green.svg');
@@ -15,27 +15,16 @@ class NoteOptions extends React.Component {
   }
 
   saveNote () {
-    let currentTitle = document.getElementById('note-send-title').value;
-    let currentContent = document.getElementById('note-send-content').value;
-    let currentFolder = 0; // GET GLOBAL STATE FOLDER
-    let currentID = 0; // GET GLOBAL STATE ID
-    let userID = 0; // GET GLOBAL USER ID
-    let origin = window.location.origin; // !todo find better way, same in OpenNote
-
-    axios.post(origin + '/php/saveNote.php', {
-      userID: userID,
-      noteTitle: currentTitle,
-      noteContent: currentContent,
-      noteFolder: currentFolder,
-      noteID: currentID,
+    let noteObject = {
+      title: this.props.gNoteTitle,
+      content: this.props.gNoteContent,
+      folderID: this.props.gUserfolderView,
+      noteID: this.props.gUserNoteView,
+      userID: this.props.gUserID,
       timestamp: Date.now()
-    })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    };
+
+    this.props.gStartNoteSave(noteObject);
   }
 
   render () {
@@ -71,9 +60,12 @@ class NoteOptions extends React.Component {
 // enable reading redux states
 function mapStateToProps (state) {
   return {
-    globalNoteTitle: state.note.title,
-    globalNoteContent: state.note.content,
-    globalNoteID: state.note.ID
+    gNoteTitle: state.note.title,
+    gNoteContent: state.note.content,
+
+    gUserNoteView: state.user.noteView,
+    gUserfolderView: state.user.folderView,
+    gUserID: state.user.id
   };
 }
 
@@ -81,7 +73,7 @@ function mapStateToProps (state) {
 function matchDispatchToProps (dispatch) {
   return bindActionCreators(
     {
-      getChangeNoteContent: changeNoteContent
+      gStartNoteSave: startNoteSave
     }, dispatch);
 }
 

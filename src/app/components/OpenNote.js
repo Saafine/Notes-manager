@@ -1,11 +1,17 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import TextareaAutosize from 'react-autosize-textarea'; // https://github.com/buildo/react-autosize-textarea -> autoresizes textareas, requires react-dom
-import axios from 'axios';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeNoteContent, changeNoteTitle, updateNoteID } from '../actions';
+import {
+  changeNoteContent,
+  changeNoteTitle,
+  updateNoteID,
+  startContentFetch,
+  updateUserNoteView,
+  updateUserFolderView
+} from '../actions';
 
 class OpenNote extends React.Component {
   constructor () {
@@ -14,37 +20,13 @@ class OpenNote extends React.Component {
   }
 
   componentWillMount () {
-    // if note id is specified as a prop inside a router, fetch note
-    if (this.props.noteID) {
-      this.props.gChangeNoteTitle('Fetching note title...');
-      this.props.gChangeNoteContent('Fetching note content...');
-      this.props.gUpdateNoteID(this.props.noteID);
-      this.fetchNote();
-    } else {
-      this.props.gChangeNoteTitle('');
-      this.props.gChangeNoteContent('');
-      this.props.gUpdateNoteID('');
-    }
-  }
-
-  fetchNote () {
-    let noteId = this.props.noteID; // noteID is passed as a prop inside a router in RightSection
-    let userID = '0'; // stateID to fetch !todo update
-    let origin = window.location.origin; // !todo find better way, same in NoteOptions
-    axios.post(origin + '/php/fetchNote.php', {
-      userID: userID, // specify userID
-      noteID: noteId // specify which note to fetch
-    })
-      .then((response) => {
-        let data = response.data;
-        this.props.gChangeNoteTitle(data.title);
-        this.props.gChangeNoteContent(data.content);
-      })
-      .catch((error) => {
-        console.log(error); // !todo check error handling
-        this.props.gChangeNoteTitle('Failed to fetch a note :(');
-        this.props.gChangeNoteContent('Try again later.');
-      });
+    // update current folder view, current note view
+    this.props.gUpdateUserNoteView(this.props.noteID);
+    this.props.gUpdateUserFolderView(this.props.folderID);
+    //
+    // this.props.gChangeNoteTitle('');
+    // this.props.gChangeNoteContent('');
+    this.props.gStartContentFetch('0', this.props.noteID); // !todo fix user
   }
 
   handleChangeNoteTitle (evt) {
@@ -82,7 +64,6 @@ class OpenNote extends React.Component {
   }
 }
 
-// enable reading redux states
 function mapStateToProps (state) {
   return {
     gNoteID: state.note.id,
@@ -91,13 +72,15 @@ function mapStateToProps (state) {
   };
 }
 
-// enable using action dispatches
 function matchDispatchToProps (dispatch) {
   return bindActionCreators(
     {
       gChangeNoteTitle: changeNoteTitle,
       gChangeNoteContent: changeNoteContent,
-      gUpdateNoteID: updateNoteID
+      gUpdateNoteID: updateNoteID,
+      gStartContentFetch: startContentFetch,
+      gUpdateUserNoteView: updateUserNoteView,
+      gUpdateUserFolderView: updateUserFolderView
     }, dispatch);
 }
 

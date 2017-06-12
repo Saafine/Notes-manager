@@ -1,6 +1,6 @@
 <?php
   require('dangerouslyAllowCORS.php');
-  require('connect.php');
+  require_once('connect.php');
 
   // connect to db
   $db = new Db();
@@ -11,26 +11,21 @@
   // Quote and escape form submitted values
   // $noteTitle = $db -> quote($data["noteTitle"]); !todo escape submitted values
 
-	$userID =  $data["userID"];
-  $query_column_names="title, documents, link";
-  $query_table_name = "folders";
-  $query_merged="SELECT $query_column_names FROM $query_table_name WHERE user=$userID";
+  $noteID =  $data["noteID"];
+  $user = $data["userID"];
+  $query_column_names="title, content";
+  $query_table_name = "notes";
+  $query_merged="SELECT $query_column_names FROM $query_table_name WHERE user=$user AND id=$noteID";
 
   $result = $db -> select($query_merged);
+  $note = [
+    title => $result[0]['title'],
+    content => $result[0]['content'],
+	];
 
-	$folders = array();
-	foreach ($result as $i => $row) {
-		$folders[$i] = [
-			title => $row['title'],
-			documents => $row['documents'],
-			link => $row['link']
-		];
-	}
-
- if ($result) {
-   echo json_encode($folders);
- }else {
- // var_dump(http_response_code(201))
-   echo $query_merged;
- }
+  if ($result) {
+    echo json_encode($note);
+  }else {
+    echo $query_merged;
+  }
 ?>

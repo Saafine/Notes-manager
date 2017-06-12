@@ -9,18 +9,26 @@ export default class RightSection extends React.Component {
       <Switch>
         <Route
           exact path="/:folder/addNote"
-          component={OpenNote}
+          render={({match}) => (
+            <OpenNote folderID={match.params.folder} noteID={'addNote'}/>
+          )}
         />
         <Route
           exact path="/:folder/:id"
           render={({match}) => (
-            <OpenNote noteFolder={match.params.folder} noteID={match.params.id}/>
+            <OpenNote folderID={match.params.folder} noteID={match.params.id}/>
           )}
         />
         <Route
           path="/:folder"
           render={({match}) => (
             <ListDocuments folderID={match.params.folder}/>
+          )}
+        />
+        <Route
+          exact path="/"
+          render={({match}) => (
+            <ListDocuments folderID={'home'}/>
           )}
         />
       </Switch>
