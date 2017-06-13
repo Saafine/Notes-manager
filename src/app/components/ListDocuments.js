@@ -5,14 +5,17 @@ import { connect } from 'react-redux';
 let folder = require('.././vendor/icons/document-green.svg');
 
 class ListDocuments extends React.Component {
-  getDocuments (fromFolders) { // expected: array of folder IDs that exist
+  getDocuments (openedFolders) { // expected: array of folder IDs that exist
     let userData = this.props.gUserFolders;
-
     let documents = [];
     let eachFolderDocs, docTitle, docTimestamp, docID;
-    for (let eachFolderID of fromFolders) {
+
+    // usually runs once, just for specified ID
+    for (let eachFolderID of openedFolders) {
       eachFolderDocs = userData[eachFolderID]['documents'];
+      // put all documents from specified folder(s) into 1 array of objects
       for (let eachDocumentID in eachFolderDocs) {
+        // debugger;
         docTitle = eachFolderDocs[eachDocumentID]['title'];
         docTimestamp = eachFolderDocs[eachDocumentID]['timestamp'];
         docID = eachFolderDocs[eachDocumentID]['id'];
@@ -32,14 +35,15 @@ class ListDocuments extends React.Component {
   getOpenedFolders (dir) {
     let userData = this.props.gUserFolders;
     let openedFolders = [];
+
     for (let eachFolderID in userData) {
       if (dir === 'home' || dir === 'recent') {
         openedFolders.push(eachFolderID);
       } else if (dir === eachFolderID) {
-        return eachFolderID;
+        openedFolders.push(eachFolderID);
+        break;
       } // !todo add trash
     }
-
     return openedFolders;
   }
 
@@ -50,6 +54,9 @@ class ListDocuments extends React.Component {
   }
 
   renderDocuments () {
+    if (!this.props.gUserFolders) { // wait for data before rendering
+      return;
+    }
     let folderID = this.props.folderID;
     let openedFolders = this.getOpenedFolders(folderID);
     let docs = this.getDocuments(openedFolders);
@@ -77,7 +84,7 @@ class ListDocuments extends React.Component {
   }
 }
 
-// enable reading redux states
+
 function mapStateToProps (state) {
   return {
     gUserFolders: state.data.userFolders

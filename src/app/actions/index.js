@@ -13,13 +13,35 @@ export const changeNoteContent = (payload) => {
     payload
   };
 };
+
+export const noteUpdateSaveStatus = (payload) => {
+  return {
+    type: 'NOTE_UPDATE_SAVE_STATUS',
+    payload
+  };
+};
 // #################################################
 
 // MODAL
 // -------------------------------------------------
-export const toggleModal = () => {
+export const modalToggle = () => {
   return {
     type: 'MODAL_TOGGLE'
+  };
+};
+
+export const modalUpdateContent = (payload) => {
+  return {
+    type: 'MODAL_CHANGE_CONTENT',
+    payload
+  };
+};
+
+export const modalChangeDimensions = (height, width) => { // !todo not used
+  return {
+    type: 'MODAL_CHANGE_DIMENSIONS',
+    height,
+    width
   };
 };
 // #################################################
@@ -39,6 +61,16 @@ export const updateUserFolderView = (payload) => {
     payload
   };
 };
+
+// DATA
+// -------------------------------------------------
+export const dataUpdateUserFolders = (payload) => { // payload is an object
+  return {
+    type: 'DATA_UPDATE_USERFOLDERS',
+    payload
+  };
+};
+// #################################################
 
 // #################################################
 
@@ -69,4 +101,5 @@ export const startNoteSave = (noteObject) => {
     noteObject
   };
 };
+
 // #################################################

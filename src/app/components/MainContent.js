@@ -1,7 +1,6 @@
 import React from 'react';
 import LeftSection from './LeftSection';
 import RightSection from './RightSection';
-import NoteOptions from './NoteOptions';
 // import Data from './Data';
 
 export default class MainContent extends React.Component {
@@ -84,7 +83,6 @@ export default class MainContent extends React.Component {
           <div class="main-content-right-wrap" style={this.state.rightWidth}>
             <div class="main-content-right">
               <RightSection />
-              <NoteOptions />
             </div>
           </div>
         </div>

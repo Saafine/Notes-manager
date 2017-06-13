@@ -26,6 +26,7 @@
   if ($result) {
     echo json_encode($note);
   }else {
-    echo $query_merged;
+//    echo $query_merged;
+    http_response_code(400); // bad request
   }
 ?>

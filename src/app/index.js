@@ -7,6 +7,8 @@ import MainContent from './components/MainContent';
 import Modal from './components/Modal';
 import createStoreWithMiddleware from './store/configureStore';
 import { startDataFetch } from './actions';
+import NoteOptions from './components/NoteOptions';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 require('./vendor/bootstrap/bootstrap.scss');
 require('./styles/main.scss');
@@ -16,14 +18,17 @@ const store = createStoreWithMiddleware();
 store.dispatch(startDataFetch('0'));
 
 render(
-  <Provider store={store}>
-    <Router>
-      <div class="expand-height">
-        <Modal />
-        <Navbar />
-        <MainContent />
-      </div>
-    </Router>
-  </Provider>,
-  document.getElementById('app')
-);
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <Router>
+        <div class="expand-height">
+          <NoteOptions />
+          <Modal />
+          <Navbar />
+          <MainContent />
+        </div>
+      </Router>
+    </Provider>
+  </MuiThemeProvider>,
+    document.getElementById('app')
+    );

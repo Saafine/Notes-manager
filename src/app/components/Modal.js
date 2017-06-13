@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toggleModal } from '../actions';
+import { modalToggle } from '../actions';
 import Rodal from 'rodal';
 
 class Modal extends React.Component {
@@ -20,8 +20,10 @@ class Modal extends React.Component {
         visible={this.props.gModalVisible}
         onClose={this.toggle}
         animation="zoom"
+        height={this.props.gModalHeight}
+        width={this.props.gModalWidth}
       >
-        <div>{this.props.gModalContent}</div>
+        <div class="expand-height">{this.props.gModalContent}</div>
       </Rodal>
     );
   }
@@ -31,7 +33,9 @@ class Modal extends React.Component {
 function mapStateToProps (state) {
   return {
     gModalVisible: state.modal.visible,
-    gModalContent: state.modal.content
+    gModalContent: state.modal.content,
+    gModalHeight: state.modal.height,
+    gModalWidth: state.modal.width
   };
 }
 
@@ -39,7 +43,7 @@ function mapStateToProps (state) {
 function matchDispatchToProps (dispatch) {
   return bindActionCreators(
     {
-      gModalToggle: toggleModal
+      gModalToggle: modalToggle
     }, dispatch);
 }
 

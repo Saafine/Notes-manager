@@ -10,7 +10,7 @@ export const dataReducer = (state = data, action) => {
     case ('START_DATA_FETCH'): // action listener in redux saga
       return {
         isFetching: true,
-        userFolders: undefined // !todo switch to undefined
+        userFolders: undefined
       };
     case ('COMPLETE_DATA_FETCH'): // resolved by redux-saga
       return {
@@ -22,6 +22,11 @@ export const dataReducer = (state = data, action) => {
       return {
         isFetching: false,
         userFolders: undefined
+      };
+    case ('DATA_UPDATE_USERFOLDERS'):
+      return {
+        isFetching: false,
+        userFolders: action.payload
       };
     default:
       return state;

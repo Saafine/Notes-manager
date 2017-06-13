@@ -12,16 +12,19 @@ export function * fetchDataAsync (action) {
     yield put({type: 'COMPLETE_DATA_FETCH', payload: response.data});
   } catch (e) {
     // act on the error
-    yield put({type: 'FAILED_DATA_FETCH'});
+    yield put({type: 'FAILED_DATA_FETCH'}); // !todo fix
   }
 }
 
 export function * fetchContentAsync (action) {
   try {
-    const response = yield call(axios.post, 'http://saafine.pe.hu/php/fetchNote.php', {userID: action.userID, noteID: action.noteID}); // !todo axios get;
+    const response = yield call(axios.post, 'http://saafine.pe.hu/php/fetchNote.php', {
+      userID: action.userID,
+      noteID: action.noteID
+    }); // !todo axios get;
     yield put({type: 'COMPLETE_CONTENT_FETCH', payload: response.data});
   } catch (e) {
-    yield put({type: 'FAILED_CONTENT_FETCH'});
+    yield put({type: 'FAILED_CONTENT_FETCH'}); // !todo fix
   }
 }
 
@@ -29,10 +32,12 @@ export function * saveContentAsync (action) {
   try {
     let explodeAction = action.noteObject;
     const response = yield call(axios.post, 'http://saafine.pe.hu/php/saveNote.php', {...explodeAction});
-    yield put({type: 'COMPLETE_DATA_FETCH', payload: response.data});
-    // yield put({type: 'COMPLETE_NOTE_SAVE'}); // !todo should return new data object
+    yield [
+      put({type: 'COMPLETE_DATA_FETCH', payload: response.data}),
+      put({type: 'NOTE_UPDATE_SAVE_STATUS', payload: true})
+    ];
   } catch (e) {
-    yield put({type: 'FAILED_NOTE_SAVE'}); // !todo fix
+    yield put({type: 'FAILED_NOTE_SAVE'}); // !todo deprecated
   }
 }
 
@@ -42,11 +47,11 @@ export function * watchFetchData () {
 }
 
 export function * watchFetchContent () {
-  yield takeEvery('START_CONTENT_FETCH', fetchContentAsync); // 1 arg -> action name to listen to, 2 arg -> run async function
+  yield takeEvery('START_CONTENT_FETCH', fetchContentAsync);
 }
 
 export function * watchSaveContent () {
-  yield takeEvery('START_NOTE_SAVE', saveContentAsync); // 1 arg -> action name to listen to, 2 arg -> run async function
+  yield takeEvery('START_NOTE_SAVE', saveContentAsync);
 }
 
 // combine watcher sagas (action listeners)

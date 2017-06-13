@@ -1,7 +1,7 @@
 let emptyNote = {
   title: '',
   content: '',
-  saved: true // !todo useless
+  saved: true
 };
 
 export const noteReducer = (state = emptyNote, action) => {
@@ -22,20 +22,10 @@ export const noteReducer = (state = emptyNote, action) => {
         title: action.payload.title,
         content: action.payload.content
       };
-    case 'NOTE_UPDATE_ID':
+    case 'NOTE_UPDATE_SAVE_STATUS':
       return {
         ...state,
-        id: action.payload
-      };
-    case 'COMPLETE_NOTE_SAVE':
-      return {
-        ...state,
-        saved: true
-      };
-    case 'FAILED_NOTE_SAVE':
-      return {
-        ...state,
-        saved: false
+        saved: action.payload
       };
     default:
       return state;

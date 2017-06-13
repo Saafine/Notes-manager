@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import {
   changeNoteContent,
   changeNoteTitle,
-  updateNoteID,
   startContentFetch,
   updateUserNoteView,
-  updateUserFolderView
+  updateUserFolderView,
+  noteUpdateSaveStatus
+
 } from '../actions';
 
 class OpenNote extends React.Component {
@@ -20,20 +21,26 @@ class OpenNote extends React.Component {
   }
 
   componentWillMount () {
-    // update current folder view, current note view
     this.props.gUpdateUserNoteView(this.props.noteID);
     this.props.gUpdateUserFolderView(this.props.folderID);
-    //
-    // this.props.gChangeNoteTitle('');
-    // this.props.gChangeNoteContent('');
-    this.props.gStartContentFetch('0', this.props.noteID); // !todo fix user
+
+    if (this.props.noteID === 'addNote') {
+      this.props.gNoteUpdateSaveStatus(false);
+      this.props.gChangeNoteTitle('');
+      this.props.gChangeNoteContent('');
+    } else {
+      this.props.gNoteUpdateSaveStatus(true);
+      this.props.gStartContentFetch(this.props.gUserID, this.props.noteID); // !todo this could be local
+    }
   }
 
   handleChangeNoteTitle (evt) {
+    this.props.gNoteUpdateSaveStatus(false);
     this.props.gChangeNoteTitle(evt.target.value);
   }
 
   handleChangeNoteContent (evt) {
+    this.props.gNoteUpdateSaveStatus(false);
     this.props.gChangeNoteContent(evt.target.value);
   }
 
@@ -66,9 +73,9 @@ class OpenNote extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    gNoteID: state.note.id,
     gNoteTitle: state.note.title,
-    gNoteContent: state.note.content
+    gNoteContent: state.note.content,
+    gUserID: state.user.id
   };
 }
 
@@ -77,10 +84,10 @@ function matchDispatchToProps (dispatch) {
     {
       gChangeNoteTitle: changeNoteTitle,
       gChangeNoteContent: changeNoteContent,
-      gUpdateNoteID: updateNoteID,
       gStartContentFetch: startContentFetch,
       gUpdateUserNoteView: updateUserNoteView,
-      gUpdateUserFolderView: updateUserFolderView
+      gUpdateUserFolderView: updateUserFolderView,
+      gNoteUpdateSaveStatus: noteUpdateSaveStatus
     }, dispatch);
 }
 

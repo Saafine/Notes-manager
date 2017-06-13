@@ -1,0 +1,33 @@
+.note-icon-wrap {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.note-icon-wrap-bottom {
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  bottom: 0;
+}
+
+.note-icon-wrap-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.note-icon {
+  float: left;
+  margin-bottom: 25px;
+  margin-right: 25px;
+}
+
+.note-icon:last-child {
+  margin-right: 25px;
+}
+
+.abc {
+  display: none;
+}
