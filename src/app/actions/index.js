@@ -102,4 +102,14 @@ export const startNoteSave = (noteObject) => {
   };
 };
 
+// DELETE FOLDER DATA
+export const startContentDelete = (userID, deleteID, deleteWhat) => {
+  return {
+    type: 'START_FOLDER_DELETE',
+    userID,
+    deleteID,
+    deleteWhat
+  };
+};
+
 // #################################################

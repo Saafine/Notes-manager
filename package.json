@@ -7,7 +7,7 @@
   "author": "lbs <pawel.lbs@gmail.com>",
   "scripts": {
     "start": "set NODE_ENV=development && \"node_modules/.bin/webpack-dev-server\"",
-    "build": "set NODE_ENV=production && \"node_modules/.bin/webpack\"",
+    "build": "rimraf dist && set NODE_ENV=production && \"node_modules/.bin/webpack\"",
     "build:old2": "rimraf dist && set NODE_ENV=production && webpack",
     "start:old2": "set NODE_ENV=development && node dev-server.js",
     "start:old": "npm run build",

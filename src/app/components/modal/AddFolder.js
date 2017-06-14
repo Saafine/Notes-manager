@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { dataUpdateUserFolders, modalToggle } from '../../actions';
+import { dataUpdateUserFolders, modalToggle, modalChangeDimensions } from '../../actions';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -18,6 +18,11 @@ class AddFolder extends React.Component {
       hintDisplay: 'none'
     };
   }
+
+  componentWillMount () {
+    this.props.gModalChangeDimensions(250, 350);
+  }
+
   createFolder () {
     let newFolderCharsLength = this.state.newFolderName.length;
     if (newFolderCharsLength === 0) {
@@ -67,6 +72,7 @@ class AddFolder extends React.Component {
             onChange={(evt) => this.handleChange(evt)}
             floatingLabelText="Enter new folder name"
             maxLength={50}
+            fullWidth={true}
           />
           <div class="modal-hint" style={{display: this.state.hintDisplay}}>{this.state.hint}</div>
         </div>
@@ -86,9 +92,9 @@ function matchDispatchToProps (dispatch) {
   return bindActionCreators(
     {
       gDataUpdateUserFolders: dataUpdateUserFolders,
-      gModalToggle: modalToggle
+      gModalToggle: modalToggle,
+      gModalChangeDimensions: modalChangeDimensions
     }, dispatch);
 }
 
-// !todo temp solution, see https://github.com/reactjs/react-redux/blob/v4.0.0/docs/troubleshooting.md#my-views-arent-updating-when-something-changes-outside-of-redux
 export default connect(mapStateToProps, matchDispatchToProps)(AddFolder);

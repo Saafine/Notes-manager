@@ -1,14 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { updateUserFolderView, startContentDelete, modalToggle, modalUpdateContent } from '../actions';
+import DeleteContent from '../components/modal/DeleteContent';
 let folder = require('.././vendor/icons/document-green.svg');
 
 class ListDocuments extends React.Component {
+  // this fires when ListDocuments is mounted as a replacement for note editor
+  componentWillMount () {
+    this.props.gUpdateUserFolderView(this.props.folderID);
+  }
+
+  // this fires when folders are switched in Left Section Tab
+  componentDidUpdate () {
+    this.props.gUpdateUserFolderView(this.props.folderID);
+  }
+
   getDocuments (openedFolders) { // expected: array of folder IDs that exist
     let userData = this.props.gUserFolders;
     let documents = [];
-    let eachFolderDocs, docTitle, docTimestamp, docID;
+    let eachFolderDocs, docTitle, docTimestamp;
 
     // usually runs once, just for specified ID
     for (let eachFolderID of openedFolders) {
@@ -18,7 +30,6 @@ class ListDocuments extends React.Component {
         // debugger;
         docTitle = eachFolderDocs[eachDocumentID]['title'];
         docTimestamp = eachFolderDocs[eachDocumentID]['timestamp'];
-        docID = eachFolderDocs[eachDocumentID]['id'];
         documents.push(
           {
             id: eachDocumentID,
@@ -53,6 +64,12 @@ class ListDocuments extends React.Component {
     });
   }
 
+  deleteNote (noteID) {
+    // promp user and ask if sure to delete
+    this.props.gModalToggle();
+    this.props.gModalUpdateContent(<DeleteContent userID={this.props.gUserID} ID={noteID} type={'note'} />);
+  }
+
   renderDocuments () {
     if (!this.props.gUserFolders) { // wait for data before rendering
       return;
@@ -67,6 +84,7 @@ class ListDocuments extends React.Component {
 
     return docs.map((doc) => {
       return (<div class="container-folder" key={doc.id}>
+        <div class="trash-folder" onClick={() => this.deleteNote(doc.id)}><i class="fa fa-trash" aria-hidden="true"></i></div>
         <Link to={'/' + doc.folderID + '/' + doc.id}>
           <img class="img-folder" src={folder}/>
           <div class="description-folder">{doc.title}</div>
@@ -84,14 +102,21 @@ class ListDocuments extends React.Component {
   }
 }
 
-
 function mapStateToProps (state) {
   return {
-    gUserFolders: state.data.userFolders
+    gUserFolders: state.data.userFolders,
+    gUserID: state.user.id
   };
 }
 
-// !todo temp solution, see https://github.com/reactjs/react-redux/blob/v4.0.0/docs/troubleshooting.md#my-views-arent-updating-when-something-changes-outside-of-redux
-export default connect(mapStateToProps, null, null, {
-  pure: false
-})(ListDocuments);
+function matchDispatchToProps (dispatch) {
+  return bindActionCreators(
+    {
+      gUpdateUserFolderView: updateUserFolderView,
+      gStartContentDelete: startContentDelete,
+      gModalToggle: modalToggle,
+      gModalUpdateContent: modalUpdateContent
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(ListDocuments);

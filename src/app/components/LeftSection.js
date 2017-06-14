@@ -18,14 +18,15 @@ class LeftSection extends React.Component {
       // !todo change updating to state
       toggleActive = active('/' + folderID); // access helpers module from library and append 'active' class if current path location matches folder's link property
       folders.push(
-            <Link to={'/' + folderID} key={folderID}>
-              <li class={toggleActive}>
-                <i class="fa fa-folder" aria-hidden="true"></i>
-                <span>{fTitle}</span>
-              </li>
-            </Link>
+        <Link to={'/' + folderID} key={folderID}>
+          <li class={toggleActive}>
+            <i class="fa fa-folder" aria-hidden="true"></i>
+            <span>{fTitle}</span>
+          </li>
+        </Link>
       );
     }
+
     return folders;
   }
 

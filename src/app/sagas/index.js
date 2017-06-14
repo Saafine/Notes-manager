@@ -41,6 +41,17 @@ export function * saveContentAsync (action) {
   }
 }
 
+export function * deleteFolderAsync (action) {
+  try {
+    const response = yield call(axios.post, 'http://saafine.pe.hu/php/deleteContent.php',
+      {userID: action.userID, deleteWhat: action.deleteWhat, deleteID: action.deleteID});
+    yield put({type: 'COMPLETE_DATA_FETCH', payload: response.data});
+  } catch (e) {
+    console.log(e);
+    // yield put({type: 'FAILED_NOTE_SAVE'}); // !todo deprecated
+  }
+}
+
 // action listener - watcher saga, handles every specified action
 export function * watchFetchData () {
   yield takeEvery('START_DATA_FETCH', fetchDataAsync); // 1 arg -> action name to listen to, 2 arg -> run async function
@@ -54,11 +65,16 @@ export function * watchSaveContent () {
   yield takeEvery('START_NOTE_SAVE', saveContentAsync);
 }
 
+export function * watchDeleteFolder () {
+  yield takeEvery('START_FOLDER_DELETE', deleteFolderAsync);
+}
+
 // combine watcher sagas (action listeners)
 export default function * rootSaga () {
   yield [ // combine sagas
     watchFetchData(),
     watchFetchContent(),
-    watchSaveContent()
+    watchSaveContent(),
+    watchDeleteFolder()
   ];
 }

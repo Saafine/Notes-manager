@@ -11,18 +11,12 @@ import {
   updateUserNoteView,
   updateUserFolderView,
   noteUpdateSaveStatus
-
 } from '../actions';
 
 class OpenNote extends React.Component {
-  constructor () {
-    super();
-    this.handleChangeNoteContent = this.handleChangeNoteContent.bind(this);
-  }
-
   componentWillMount () {
-    this.props.gUpdateUserNoteView(this.props.noteID);
     this.props.gUpdateUserFolderView(this.props.folderID);
+    this.props.gUpdateUserNoteView(this.props.noteID);
 
     if (this.props.noteID === 'addNote') {
       this.props.gNoteUpdateSaveStatus(false);
@@ -75,7 +69,8 @@ function mapStateToProps (state) {
   return {
     gNoteTitle: state.note.title,
     gNoteContent: state.note.content,
-    gUserID: state.user.id
+    gUserID: state.user.id,
+    gUserFolderView: state.user.folderView
   };
 }
 

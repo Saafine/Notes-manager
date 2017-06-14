@@ -1,43 +1,42 @@
-// Configuration options at => https://webpack.github.io/docs/configuration.html
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-// development equals TRUE if environment variable is a string set to "development"
-const DEVELOPMENT = process.env.NODE_ENV === 'development';
-const PRODUCTION = process.env.NODE_ENV === 'production';
+const PRODUCTION = process.env.NODE_ENV.trim() === 'production';
 
 let plugins = [
   new HtmlWebpackPlugin(
     {
       template: path.join(__dirname, 'src', 'index.html'),
       hash: true
-      // chunks: ['app'] // specifies which .js files to bundle
     }
   )
 ];
 
-// !update, check if it works in production
-if (PRODUCTION) {
-  console.log('I SHOULD BE IN PRODUCTION');
-  plugins.push(new UglifyJSPlugin());
-  plugins.push(new ExtractTextPlugin('style-[contenthash:10].css'));
+let sourcemap;
+if (PRODUCTION) { // Production only plugins
+  console.log('Loading production only plugins...');
+  sourcemap = false;
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+  plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+      'NODE_ENV': JSON.stringify('production')
+    }
+  }));
+
+  // Visualize bundle size
+  const Visualizer = require('webpack-visualizer-plugin');
+  plugins.push(new Visualizer({
+    filename: '.././statistics.html'
+  }));
 } else {
-  console.log('I SHOULD BE IN DEV'); // !todo fix me
+  sourcemap = 'cheap-module-source-map';
 }
 
-// !update, check if it works in production
-const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
-const cssLoader = PRODUCTION
-  ? ExtractTextPlugin.extract({
-    loader: 'css-loader?minimize&localIdentName=' + cssIdentifier
-  })
-  : ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
+const cssIdentifier = '[hash:base64:10]';
+const cssLoader = ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: sourcemap,
   context: path.join(__dirname, 'src'),
   entry: [
     'babel-polyfill', // this is required for redux-saga to work
@@ -45,7 +44,8 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
+    publicPath: '/' // point to the correct dir when url reached from external source
   },
   module: {
     loaders: [

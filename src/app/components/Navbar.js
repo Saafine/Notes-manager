@@ -2,12 +2,11 @@ import React from 'react';
 import Search from './library/Search';
 import {active} from './library/helpers';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-// Description:
-// Navbar with expanding search input
-
-const Navbar = () => {
-  return (
+class Navbar extends React.Component {
+  render () {
+    return (
       <nav>
         <ul class="align-left">
           <Link to="/">
@@ -16,7 +15,7 @@ const Navbar = () => {
             </li>
           </Link>
           <li class="hidden-sm-down">
-          /currentDirectory
+            /{this.props.gUserFolderView}
           </li>
         </ul>
         <ul class="align-right">
@@ -31,7 +30,15 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
-  );
+    );
+  }
 };
 
-export default Navbar;
+// enable reading redux states
+function mapStateToProps (state) {
+  return {
+    gUserFolderView: state.user.folderView
+  };
+}
+
+export default connect(mapStateToProps)(Navbar);

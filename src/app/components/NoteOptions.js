@@ -12,12 +12,6 @@ const styleSaved = {backgroundColor: '#0e9342'};
 const styleUnsaved = {backgroundColor: '#ff001f'};
 
 class NoteOptions extends React.Component {
-  constructor () {
-    super();
-    this.saveNote = this.saveNote.bind(this);
-    this.createFolder = this.createFolder.bind(this);
-  }
-
   saveNote () {
     if (this.props.gNoteSaved) {
       alert('already saved');
@@ -43,16 +37,13 @@ class NoteOptions extends React.Component {
   }
 
   render () {
-    // specifies to which folder, the addNote icon will point to. In case of root path '/', it will point to '/home'
-    let specifyFolder = (location.pathname) === '/' ? 'home/addNote' : location.pathname + '/addNote';
     let updateStyle = this.props.gNoteSaved ? styleSaved : styleUnsaved;
-
     return (
       <div class="note-icon-wrap">
         <div class="note-icon-wrap-bottom">
           <div class="note-icon-wrap-bottom-right">
             <div class="note-icon">
-              <Link to={this.props.gUserFolderView + '/addNote'}>
+              <Link to={'/' + this.props.gUserFolderView + '/addNote'}>
                 <RaisedButton
                   label="Create new Note"
                   labelPosition="before"
@@ -67,7 +58,7 @@ class NoteOptions extends React.Component {
                 labelPosition="before"
                 primary={true}
                 icon={<ContentSave />}
-                onClick={this.createFolder}
+                onClick={() => this.createFolder()}
               />
             </div>
             <div class="note-icon">
@@ -77,7 +68,7 @@ class NoteOptions extends React.Component {
                 primary={true}
                 overlayStyle={updateStyle}
                 icon={<ContentSave />}
-                onClick={this.saveNote}
+                onClick={() => this.saveNote()}
               />
             </div>
           </div>
@@ -87,7 +78,6 @@ class NoteOptions extends React.Component {
   }
 }
 
-// enable reading redux states
 function mapStateToProps (state) {
   return {
     gNoteTitle: state.note.title,
@@ -99,7 +89,6 @@ function mapStateToProps (state) {
   };
 }
 
-// enable using action dispatches
 function matchDispatchToProps (dispatch) {
   return bindActionCreators(
     {
@@ -110,7 +99,4 @@ function matchDispatchToProps (dispatch) {
     }, dispatch);
 }
 
-// !todo temp solution, see https://github.com/reactjs/react-redux/blob/v4.0.0/docs/troubleshooting.md#my-views-arent-updating-when-something-changes-outside-of-redux
-export default connect(mapStateToProps, matchDispatchToProps, null, {
-  pure: false
-})(NoteOptions);
+export default connect(mapStateToProps, matchDispatchToProps)(NoteOptions);
