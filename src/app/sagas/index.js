@@ -31,6 +31,7 @@ export function * fetchContentAsync (action) {
 export function * saveContentAsync (action) {
   try {
     let explodeAction = action.noteObject;
+    console.log(explodeAction);
     const response = yield call(axios.post, 'http://saafine.pe.hu/php/saveNote.php', {...explodeAction});
     yield [
       put({type: 'COMPLETE_DATA_FETCH', payload: response.data}),
@@ -41,7 +42,7 @@ export function * saveContentAsync (action) {
   }
 }
 
-export function * deleteFolderAsync (action) {
+export function * deleteContentAsync (action) {
   try {
     const response = yield call(axios.post, 'http://saafine.pe.hu/php/deleteContent.php',
       {userID: action.userID, deleteWhat: action.deleteWhat, deleteID: action.deleteID});
@@ -66,7 +67,7 @@ export function * watchSaveContent () {
 }
 
 export function * watchDeleteFolder () {
-  yield takeEvery('START_FOLDER_DELETE', deleteFolderAsync);
+  yield takeEvery('START_FOLDER_DELETE', deleteContentAsync);
 }
 
 // combine watcher sagas (action listeners)

@@ -1,25 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
 import { modalChangeDimensions, modalToggle, startContentDelete } from '../../actions';
 import { bindActionCreators } from 'redux';
-// import RaisedButton from 'material-ui/RaisedButton';
-// import TextField from 'material-ui/TextField';
-// import injectTapEventPlugin from 'react-tap-event-plugin'; // !todo it fixes https://github.com/callemall/material-ui/issues/4670
-// injectTapEventPlugin(); // !todo see above
 import RaisedButton from 'material-ui/RaisedButton';
 
-const style = {
-  float: 'right'
-};
-
-const styleBody = {
-  textAlign: 'center'
-};
-
-const styleButtons = {
-  marginTop: '20px'
-};
+const style = {float: 'right'};
+const styleBody = {textAlign: 'center'};
+const styleButtons = {marginTop: '20px'};
 
 class DeleteContent extends React.Component {
   componentWillMount () {
@@ -34,7 +21,7 @@ class DeleteContent extends React.Component {
   render () {
     return (
       <div class="modal-wrapper">
-        <div class="modal-title">DELETE FOLDER</div>
+        <div class="modal-title">Deleting {this.props.type}</div>
         <div class="modal-body" style={styleBody}>
           Are you sure?
         </div>
@@ -46,13 +33,6 @@ class DeleteContent extends React.Component {
     );
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    // gUserID: state.user.id
-  };
-}
-
 function matchDispatchToProps (dispatch) {
   return bindActionCreators(
     {
@@ -62,4 +42,4 @@ function matchDispatchToProps (dispatch) {
     }, dispatch);
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(DeleteContent);
+export default connect(null, matchDispatchToProps)(DeleteContent);

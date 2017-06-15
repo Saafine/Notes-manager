@@ -41,7 +41,6 @@ class AddFolder extends React.Component {
     })
       .then((response) => {
         this.props.gDataUpdateUserFolders(response.data);
-        this.props.gModalToggle();
       })
       .catch(() => {
         this.setState(() => {
@@ -51,6 +50,7 @@ class AddFolder extends React.Component {
           };
         });
       });
+    this.props.gModalToggle();
   }
 
   handleChange (e) {

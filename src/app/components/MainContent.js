@@ -1,9 +1,10 @@
 import React from 'react';
 import LeftSection from './LeftSection';
 import RightSection from './RightSection';
-// import Data from './Data';
+import Loader from './library/Loader';
+import {connect} from 'react-redux';
 
-export default class MainContent extends React.Component {
+class MainContent extends React.Component {
   constructor () {
     super();
     this.allowResizing = this.allowResizing.bind(this);
@@ -66,10 +67,12 @@ export default class MainContent extends React.Component {
   }
 
   render () {
+    console.log(this.props);
     return (
       <div class="expand-height">
         <div class="main-content">
           <div class="main-content-left-wrap" style={this.state.leftWidth}>
+            <Loader display={this.props.loaderDisplayLeft}/>
             <div class="main-content-left">
               <div class="sidebar-resizer">
                 <span class="t-circle"></span>
@@ -81,6 +84,7 @@ export default class MainContent extends React.Component {
             </div>
           </div>
           <div class="main-content-right-wrap" style={this.state.rightWidth}>
+            <Loader display={this.props.LoaderDisplayRight}/>
             <div class="main-content-right">
               <RightSection />
             </div>
@@ -90,3 +94,12 @@ export default class MainContent extends React.Component {
     );
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    loaderDisplayLeft: state.loader.displayLeft,
+    LoaderDisplayRight: state.loader.displayRight
+  };
+}
+
+export default connect(mapStateToProps, null)(MainContent);

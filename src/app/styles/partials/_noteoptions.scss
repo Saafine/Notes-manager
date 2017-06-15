@@ -28,6 +28,24 @@
   margin-right: 25px;
 }
 
-.abc {
-  display: none;
+.trash-icon {
+  font-size: 14px;
+  color: $color3;
+  cursor:pointer;
+  transition: 0.3s;
+}
+
+.trash-document {
+  position: absolute;
+  right: 15px;
+  top: 0px;
+}
+
+.trash-folder {
+  float: right;
+  padding-right: 15px;
+}
+
+.trash-document:hover, .trash-folder:hover  {
+  color: $color1;
 }

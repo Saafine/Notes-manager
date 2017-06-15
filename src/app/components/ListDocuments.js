@@ -60,7 +60,7 @@ class ListDocuments extends React.Component {
 
   sortByTimestamp (arrayToSort) { // no need to return -> sort is mutating existing array
     arrayToSort.sort((a, b) => {
-      return a.timestamp - b.timestamp;
+      return parseInt(b.timestamp) - parseInt(a.timestamp);
     });
   }
 
@@ -84,7 +84,7 @@ class ListDocuments extends React.Component {
 
     return docs.map((doc) => {
       return (<div class="container-folder" key={doc.id}>
-        <div class="trash-folder" onClick={() => this.deleteNote(doc.id)}><i class="fa fa-trash" aria-hidden="true"></i></div>
+        <div class="trash-icon trash-document" onClick={() => this.deleteNote(doc.id)}><i class="fa fa-trash" aria-hidden="true"></i></div>
         <Link to={'/' + doc.folderID + '/' + doc.id}>
           <img class="img-folder" src={folder}/>
           <div class="description-folder">{doc.title}</div>

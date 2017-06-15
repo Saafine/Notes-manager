@@ -24,6 +24,14 @@
   $query_merged = "DELETE FROM $table_name WHERE user=$userID AND id=$deleteID";
   $delete = $db -> query($query_merged);
 
+  // if successfuly deleted folder, delete all notes from that folder
+  if ($delete && $table_name === 'folders') {
+    $delete_notes_query_merged = "DELETE FROM notes WHERE user=$userID AND folderID=$deleteID";
+    $delete_notes = $db -> query($delete_notes_query_merged);
+  }
+
+
+  // get updated userData
   $data = getUserData($userID);
   echo $data;
 ?>

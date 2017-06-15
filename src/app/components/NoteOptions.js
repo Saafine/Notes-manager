@@ -1,12 +1,13 @@
 import React from 'react';
-import { Route, Link, Switch } from 'react-router-dom'; // !todo cleanup
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { startNoteSave, modalToggle, modalUpdateContent, noteUpdateSaveStatus } from '../actions';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {startNoteSave, modalToggle, modalUpdateContent, noteUpdateSaveStatus} from '../actions';
 import AddFolder from './modal/AddFolder';
+import {withRouter} from 'react-router';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
+import DefaultModal from './modal/DefaultModal';
 
 const styleSaved = {backgroundColor: '#0e9342'};
 const styleUnsaved = {backgroundColor: '#ff001f'};
@@ -25,8 +26,14 @@ class NoteOptions extends React.Component {
       folderID: this.props.gUserFolderView,
       noteID: this.props.gUserNoteView,
       userID: this.props.gUserID,
-      timestamp: getTimestamp
+      noteTimestamp: getTimestamp
     };
+
+    if (noteObject.title.length === 0 || noteObject.content.length === 0) {
+      this.props.gToggleModal();
+      this.props.gModalUpdateContent(<DefaultModal message={'Note title and content can\'t be empty.'} />);
+      return;
+    }
 
     this.props.gStartNoteSave(noteObject); // !todo it should: disallow another save and return saved status
   }
@@ -36,6 +43,16 @@ class NoteOptions extends React.Component {
     this.props.gModalUpdateContent(<AddFolder />);
   }
 
+  createNote () {
+    if (this.props.gUserFolderView === 'home' || this.props.gUserFolderView === 'recent') {
+      this.props.gToggleModal();
+      this.props.gModalUpdateContent(<DefaultModal message={'Select a folder first'} />);
+    } else {
+      let newNote = '/' + this.props.gUserFolderView + '/addNote';
+      this.props.history.push(newNote);
+    }
+  }
+
   render () {
     let updateStyle = this.props.gNoteSaved ? styleSaved : styleUnsaved;
     return (
@@ -43,14 +60,13 @@ class NoteOptions extends React.Component {
         <div class="note-icon-wrap-bottom">
           <div class="note-icon-wrap-bottom-right">
             <div class="note-icon">
-              <Link to={'/' + this.props.gUserFolderView + '/addNote'}>
-                <RaisedButton
-                  label="Create new Note"
-                  labelPosition="before"
-                  primary={true}
-                  icon={<ContentSave/>}
-                />
-              </Link>
+              <RaisedButton
+                label="Create new Note"
+                labelPosition="before"
+                primary={true}
+                icon={<ContentSave/>}
+                onClick={() => this.createNote()}
+              />
             </div>
             <div class="note-icon">
               <RaisedButton
@@ -99,4 +115,5 @@ function matchDispatchToProps (dispatch) {
     }, dispatch);
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(NoteOptions);
+// enable browser history push for router from within a function
+export default withRouter(connect(mapStateToProps, matchDispatchToProps)(NoteOptions));

@@ -1,8 +1,11 @@
 import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { Link } from 'react-router-dom';
-import { active } from './library/helpers';
-import { connect } from 'react-redux';
+import {Scrollbars} from 'react-custom-scrollbars';
+import {Link} from 'react-router-dom';
+import {active} from './library/helpers';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {modalToggle, modalUpdateContent} from '../actions';
+import DeleteContent from './modal/DeleteContent';
 
 class LeftSection extends React.Component {
   renderFolders () {
@@ -22,12 +25,21 @@ class LeftSection extends React.Component {
           <li class={toggleActive}>
             <i class="fa fa-folder" aria-hidden="true"></i>
             <span>{fTitle}</span>
+            <div class="trash-icon trash-folder" onClick={() => this.deleteFolder(folderID)}>
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </div>
           </li>
         </Link>
       );
     }
 
     return folders;
+  }
+
+  deleteFolder (folderID) {
+    // promp user and ask if sure to delete
+    this.props.modalToggle();
+    this.props.modalUpdateContent(<DeleteContent userID={this.props.gUserID} ID={folderID} type={'folder'}/>);
   }
 
   render () { // !todo add trash
@@ -61,11 +73,20 @@ class LeftSection extends React.Component {
 // enable reading redux states
 function mapStateToProps (state) {
   return {
-    gUserFolders: state.data.userFolders
+    gUserFolders: state.data.userFolders,
+    gUserID: state.user.id
   };
 }
 
+function matchDispatchToProps (dispatch) {
+  return bindActionCreators(
+    {
+      modalToggle,
+      modalUpdateContent
+    }, dispatch);
+}
+
 // !todo temp solution, see https://github.com/reactjs/react-redux/blob/v4.0.0/docs/troubleshooting.md#my-views-arent-updating-when-something-changes-outside-of-redux
-export default connect(mapStateToProps, null, null, {
+export default connect(mapStateToProps, matchDispatchToProps, null, {
   pure: false
 })(LeftSection);
