@@ -1,19 +1,19 @@
 let loader = {
-  displayRight: 'block',
-  displayLeft: 'block'
+  loadingFolders: false,
+  loadingNoteContent: false
 };
 
 export const loaderReducer = (state = loader, action) => {
   switch (action.type) {
-    case ('LOADER_UPDATE_DISPLAY_LEFT'):
+    case ('LOADER_LOADING_FOLDERS'):
       return {
         ...state,
-        displayLeft: action.payload
+        loadingFolders: action.payload
       };
-    case ('LOADER_UPDATE_DISPLAY_RIGHT'):
+    case ('LOADER_LOADING_NOTES'):
       return {
         ...state,
-        displayRight: action.payload
+        loadingNoteContent: action.payload
       };
     default:
       return state;

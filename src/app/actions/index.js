@@ -72,23 +72,6 @@ export const dataUpdateUserFolders = (payload) => { // payload is an object
 };
 // #################################################
 
-// LOADER
-// -------------------------------------------------
-export const loaderUpdateDisplayLeft = (payload) => {
-  return {
-    type: 'LOADER_UPDATE_DISPLAY_LEFT',
-    payload
-  };
-};
-
-export const loaderUpdateDisplayRight = (payload) => {
-  return {
-    type: 'LOADER_UPDATE_DISPLAY_RIGHT',
-    payload
-  };
-};
-// #################################################
-
 // Asynchronous data actions handled by redux saga
 // -------------------------------------------------
 

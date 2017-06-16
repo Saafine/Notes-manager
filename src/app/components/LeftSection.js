@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {modalToggle, modalUpdateContent} from '../actions';
 import DeleteContent from './modal/DeleteContent';
+import Loader from './library/Loader';
 
 class LeftSection extends React.Component {
   renderFolders () {
@@ -44,28 +45,30 @@ class LeftSection extends React.Component {
 
   render () { // !todo add trash
     return (
-      <Scrollbars
-        autoHide={true}
-        autoHideDuration={300}>
-        <div class="sidebar-nav">
-          <ul>
-            <Link to="/">
-              <li class={active('/')}>
-                <i class="fa fa-home" aria-hidden="true"></i>
-                <span>Home</span>
-              </li>
-            </Link>
-            <Link to="/recent">
-              <li class={active('/recent')}>
-                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                <span>Recent</span>
-              </li>
-            </Link>
-            <hr/>
-            {this.renderFolders()}
-          </ul>
-        </div>
-      </Scrollbars>
+      <Loader loading={this.props.gLoadingFolders}>
+        <Scrollbars
+          autoHide={true}
+          autoHideDuration={300}>
+          <div class="sidebar-nav">
+            <ul>
+              <Link to="/">
+                <li class={active('/')}>
+                  <i class="fa fa-home" aria-hidden="true"></i>
+                  <span>Home</span>
+                </li>
+              </Link>
+              <Link to="/recent">
+                <li class={active('/recent')}>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  <span>Recent</span>
+                </li>
+              </Link>
+              <hr/>
+              {this.renderFolders()}
+            </ul>
+          </div>
+        </Scrollbars>
+      </Loader>
     );
   }
 }
@@ -74,7 +77,8 @@ class LeftSection extends React.Component {
 function mapStateToProps (state) {
   return {
     gUserFolders: state.data.userFolders,
-    gUserID: state.user.id
+    gUserID: state.user.id,
+    gLoadingFolders: state.loader.loadingFolders
   };
 }
 

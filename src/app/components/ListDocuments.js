@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateUserFolderView, startContentDelete, modalToggle, modalUpdateContent } from '../actions';
 import DeleteContent from '../components/modal/DeleteContent';
+import Loader from './library/Loader';
 let folder = require('.././vendor/icons/document-green.svg');
 
 class ListDocuments extends React.Component {
@@ -95,9 +96,9 @@ class ListDocuments extends React.Component {
 
   render () {
     return (
-      <div>
+      <Loader loading={this.props.gLoadingFolders}>
         {this.renderDocuments()}
-      </div>
+      </Loader>
     );
   }
 }
@@ -105,7 +106,8 @@ class ListDocuments extends React.Component {
 function mapStateToProps (state) {
   return {
     gUserFolders: state.data.userFolders,
-    gUserID: state.user.id
+    gUserID: state.user.id,
+    gLoadingFolders: state.loader.loadingFolders
   };
 }
 

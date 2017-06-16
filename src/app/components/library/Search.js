@@ -9,7 +9,7 @@ export default class Search extends React.Component {
   constructor () {
     super();
     this.state = {
-      searchOpened: 0
+      searchOpened: true
     };
   }
 
@@ -19,17 +19,14 @@ export default class Search extends React.Component {
     });
   }
 
-  renderSearch () {
-    return this.state.searchOpened ? {width: '0px'} : {width: '200px'};
-  }
-
   render () {
+    let toggleSearch = this.state.searchOpened ? {width: '200px'} : {width: '0px'};
     return (
       <div>
         <a onClick={() => this.toggleSearch()}>
           <span><i class="fa fa-search" aria-hidden="true"></i></span>
         </a>
-        <input style={this.renderSearch()} class="t-search" type="text" placeholder="Search..."/>
+        <input style={toggleSearch} class="t-search" type="text" placeholder="Search..."/>
       </div>
     );
   }

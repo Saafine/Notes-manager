@@ -1,36 +1,50 @@
-import React from 'react';
+let i = [1, 2, 3, 4];
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { changeName } from '../actions';
+let iterator = i[Symbol.iterator]();
 
-class LbsTest extends React.Component {
-  changeAction () {
-    this.props.getChangeName('abc');
-  };
+let x = iterator.next();
+console.log(x);
+// { value: 1, done: false }
+x = iterator.next();
+// { value: 2, done: false }
+console.log(x);
 
-  render () {
-    return (
-      <div>
-        <button onClick={this.changeAction.bind(this)}>Click me</button>
-        {this.props.users}
-      </div>
-    );
+function * generator () {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+}
+
+let iterator2 = generator();
+
+let x2 = iterator2.next();
+console.log(x2);
+// { value: 1, done: false }
+x2 = iterator2.next();
+// { value: 2, done: false }
+console.log(x2);
+
+// example 2
+function * infiniteMaker () {
+  let i = 0;
+  while (true) {
+    yield i;
+    i++;
   }
 }
 
-// enable reading redux states
-function mapStateToProps (state) {
-  return {
-    users: state.name // users is the name of the prop you want to use. Name -> is taken from reducer
-  };
-}
+let infinite = infiniteMaker();
+console.log(infinite.next());
+console.log(infinite.next());
+console.log(infinite.next());
+console.log(infinite.next());
+console.log(infinite.next());
+console.log(infinite.next());
 
-// enable using action dispatches
-function matchDispatchToProps (dispatch) {
-  return bindActionCreators({getChangeName: changeName}, dispatch);
-}
-
-// mapStateToProps -> connect to redux's store so that component can read props.
-// matchDispatchToProps -> connect to redux's store so that component can write props.
-export default connect(mapStateToProps, matchDispatchToProps)(LbsTest);
+// { value: 0, done: false }
+// { value: 1, done: false }
+// { value: 2, done: false }
+// { value: 3, done: false }
+// { value: 4, done: false }
+// { value: 5, done: false }
