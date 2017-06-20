@@ -7,7 +7,8 @@ let plugins = [
   new HtmlWebpackPlugin(
     {
       template: path.join(__dirname, 'src', 'index.html'),
-      hash: true
+      hash: true,
+      favicon: path.join(__dirname, 'src', 'favicon.jpg')
     }
   )
 ];

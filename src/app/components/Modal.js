@@ -5,11 +5,6 @@ import { modalToggle } from '../actions';
 import Rodal from 'rodal';
 
 class Modal extends React.Component {
-  constructor () {
-    super();
-    this.toggle = this.toggle.bind(this);
-  }
-
   toggle () {
     this.props.gModalToggle();
   }
@@ -18,7 +13,7 @@ class Modal extends React.Component {
     return (
       <Rodal
         visible={this.props.gModalVisible}
-        onClose={this.toggle}
+        onClose={() => this.toggle}
         animation="zoom"
         height={this.props.gModalHeight}
         width={this.props.gModalWidth}

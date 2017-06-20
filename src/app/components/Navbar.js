@@ -1,11 +1,26 @@
 import React from 'react';
-import Search from './library/Search';
+import UserAvatar from './UserAvatar';
 import {active} from './library/helpers';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 class Navbar extends React.Component {
   render () {
+    let getDir = '...';
+    if (this.props.gUserFolders) {
+      if (this.props.gUserFolderView === 'home') {
+        getDir = 'home';
+      } else if (this.props.gUserFolderView === 'recent') {
+        getDir = 'recent';
+      } else {
+        if (!this.props.gUserFolders[this.props.gUserFolderView]) {
+          getDir = 'folder deleted';
+        } else {
+          getDir = this.props.gUserFolders[this.props.gUserFolderView].title;
+        }
+      }
+    }
+
     return (
       <nav>
         <ul class="align-left">
@@ -15,29 +30,24 @@ class Navbar extends React.Component {
             </li>
           </Link>
           <li class="hidden-sm-down">
-            /{this.props.gUserFolderView}
+            /{getDir}
           </li>
         </ul>
         <ul class="align-right">
-          <li class="clickable reset-padding">
-            <Search />
-          </li>
-          <li class="clickable hidden-xs-down">
-            <i class="fa fa-th" aria-hidden="true"></i>
-          </li>
-          <li class="clickable hidden-xs-down">
-            <i class="fa fa-th-large" aria-hidden="true"></i>
+          <li class="clickable">
+            <UserAvatar />
           </li>
         </ul>
       </nav>
     );
   }
-};
+}
+;
 
-// enable reading redux states
 function mapStateToProps (state) {
   return {
-    gUserFolderView: state.user.folderView
+    gUserFolderView: state.user.folderView,
+    gUserFolders: state.data.userFolders
   };
 }
 

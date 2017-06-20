@@ -7,6 +7,7 @@ import {withRouter} from 'react-router';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
+import CreateNewFolder from 'material-ui/svg-icons/file/create-new-folder';
 import DefaultModal from './modal/DefaultModal';
 
 const styleSaved = {backgroundColor: '#0e9342'};
@@ -15,7 +16,8 @@ const styleUnsaved = {backgroundColor: '#ff001f'};
 class NoteOptions extends React.Component {
   saveNote () {
     if (this.props.gNoteSaved) {
-      alert('already saved');
+      this.props.gToggleModal();
+      this.props.gModalUpdateContent(<DefaultModal message={'Already saved.'} />);
       return;
     }
 
@@ -35,7 +37,7 @@ class NoteOptions extends React.Component {
       return;
     }
 
-    this.props.gStartNoteSave(noteObject); // !todo it should: disallow another save and return saved status
+    this.props.gStartNoteSave(noteObject);
   }
 
   createFolder () {
@@ -73,7 +75,7 @@ class NoteOptions extends React.Component {
                 label="Create folder"
                 labelPosition="before"
                 primary={true}
-                icon={<ContentSave />}
+                icon={<CreateNewFolder />}
                 onClick={() => this.createFolder()}
               />
             </div>

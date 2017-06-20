@@ -42,3 +42,19 @@ nav {
     cursor: pointer;
   }
 }
+
+.avatar-wrapper {
+  display: flex;
+  padding-top: 5px;
+}
+
+.avatar-image {
+  border-radius: $avatar-height;
+  height: $avatar-height;
+}
+
+.avatar-name {
+  padding-right: 5px;
+  padding-left: 5px;
+  color: $font-active;
+}

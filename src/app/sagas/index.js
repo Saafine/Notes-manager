@@ -12,10 +12,9 @@ export function * fetchDataAsync (action) {
     // put -> dispatches an action with information from response
     yield put({type: 'COMPLETE_DATA_FETCH', payload: response.data});
     yield put({type: 'LOADER_LOADING_FOLDERS', payload: false});
-
   } catch (e) {
     // act on the error
-    yield put({type: 'FAILED_DATA_FETCH'}); // !todo fix
+    alert('database is not responding');
   }
 }
 
@@ -29,24 +28,24 @@ export function * fetchContentAsync (action) {
     }); // !todo axios get;
     yield put({type: 'COMPLETE_CONTENT_FETCH', payload: response.data});
     yield put({type: 'LOADER_LOADING_NOTES', payload: false});
-    return;
   } catch (e) {
-    yield put({type: 'FAILED_CONTENT_FETCH'}); // !todo fix
+    alert('database is not responding');
   }
 }
 
 // save new note content / new note
 export function * saveContentAsync (action) {
   try {
-    console.log('saving new note');
-    yield put({type: 'LOADER_LOADING_NOTES', payload: true});
     let explodeAction = action.noteObject;
+    yield put({type: 'LOADER_LOADING_NOTES', payload: true});
+    yield put({type: 'LOADER_LOADING_FOLDERS', payload: true});
     const response = yield call(axios.post, 'http://saafine.pe.hu/php/saveNote.php', {...explodeAction});
     yield put({type: 'COMPLETE_DATA_FETCH', payload: response.data});
     yield put({type: 'NOTE_UPDATE_SAVE_STATUS', payload: true});
     yield put({type: 'LOADER_LOADING_NOTES', payload: false});
+    yield put({type: 'LOADER_LOADING_FOLDERS', payload: false});
   } catch (e) {
-    yield put({type: 'FAILED_NOTE_SAVE'}); // !todo deprecated
+    alert('database is not responding');
   }
 }
 
@@ -59,8 +58,7 @@ export function * deleteContentAsync (action) {
     yield put({type: 'COMPLETE_DATA_FETCH', payload: response.data});
     yield put({type: 'LOADER_LOADING_FOLDERS', payload: false});
   } catch (e) {
-    console.log(e);
-    // yield put({type: 'FAILED_NOTE_SAVE'}); // !todo deprecated
+    alert('database is not responding');
   }
 }
 

@@ -11,10 +11,10 @@ export default class MainContent extends React.Component {
     this.resizeElementTag = document.getElementsByClassName('sidebar-resizer');
     this.state = {
       leftWidth: {
-        width: '15%'
+        width: window.innerWidth > 800 ? '15%' : '35%'
       },
       rightWidth: {
-        width: '85%'
+        width: window.innerWidth > 800 ? '85%' : '65%'
       }
     };
   }

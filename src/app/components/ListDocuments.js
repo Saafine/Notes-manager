@@ -28,7 +28,6 @@ class ListDocuments extends React.Component {
       eachFolderDocs = userData[eachFolderID]['documents'];
       // put all documents from specified folder(s) into 1 array of objects
       for (let eachDocumentID in eachFolderDocs) {
-        // debugger;
         docTitle = eachFolderDocs[eachDocumentID]['title'];
         docTimestamp = eachFolderDocs[eachDocumentID]['timestamp'];
         documents.push(

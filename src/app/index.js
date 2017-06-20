@@ -1,12 +1,12 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import {BrowserRouter as Router} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MainContent from './components/MainContent';
 import Modal from './components/Modal';
 import createStoreWithMiddleware from './store/configureStore';
-import { startDataFetch } from './actions';
+import {startDataFetch} from './actions';
 import NoteOptions from './components/NoteOptions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -30,5 +30,5 @@ render(
       </Router>
     </Provider>
   </MuiThemeProvider>,
-    document.getElementById('app')
-    );
+  document.getElementById('app')
+);
