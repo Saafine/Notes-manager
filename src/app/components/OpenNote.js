@@ -1,7 +1,6 @@
 import React from 'react';
 import {Scrollbars} from 'react-custom-scrollbars';
 import TextareaAutosize from 'react-autosize-textarea'; // https://github.com/buildo/react-autosize-textarea -> autoresizes textareas, requires react-dom
-import Loader from './library/Loader';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {
@@ -23,6 +22,8 @@ class OpenNote extends React.Component {
       this.props.gChangeNoteTitle('');
       this.props.gChangeNoteContent('');
     } else {
+      this.props.gChangeNoteTitle('Loading title...');
+      this.props.gChangeNoteContent('Loading content...');
       this.props.gNoteUpdateSaveStatus(true);
       this.props.gStartContentFetch(this.props.gUserID, this.props.noteID); // !todo this could be local
     }
@@ -40,13 +41,12 @@ class OpenNote extends React.Component {
 
   render () {
     return (
-      <Loader loading={this.props.gLoaderNoteContent}>
-        <Scrollbars
-          autoHide={false}
-          renderThumbVertical={() =>
-            <div style={{background: '#3b4245'}}/>
-          }
-        >
+      <Scrollbars
+        autoHide={false}
+        renderThumbVertical={() =>
+          <div style={{background: '#3b4245'}}/>
+        }
+      >
           <div class="note-wrapper">
             <div class="note-title">
               <input type="text" id="note-send-title" class="note-title-textinput"
@@ -61,8 +61,7 @@ class OpenNote extends React.Component {
                                 value={this.props.gNoteContent}/>
             </div>
           </div>
-        </Scrollbars>
-      </Loader>
+      </Scrollbars>
     );
   }
 }
