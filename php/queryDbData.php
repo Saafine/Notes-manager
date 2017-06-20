@@ -1,7 +1,7 @@
 <?php
 function getUserData($userID) {
   $db = new Db();
-  $folders_query_column_names="id, title, documents, link"; // !todo folder link deprecated
+  $folders_query_column_names="id, title, documents";
   $folders_query_table_name = "folders";
   $folders_query_merged="SELECT $folders_query_column_names FROM $folders_query_table_name WHERE user=$userID";
   $folders_result = $db -> select($folders_query_merged);
@@ -15,7 +15,6 @@ function getUserData($userID) {
   foreach ($folders_result as $i => $row) {
     $userData[$row['id']] = [
         title => $row['title'],
-        link => $row['link'],
         documents => []
     ];
   }

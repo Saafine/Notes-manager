@@ -8,16 +8,13 @@
   // get post data
   $data = json_decode(file_get_contents('php://input'), true);
 
-  // Quote and escape form submitted values
-  // $noteTitle = $db -> quote($data["noteTitle"]); !todo escape submitted values
+  $userID = $db -> quote($data["userID"]);
+  $deleteWhat = $db -> quote($data["deleteWhat"]);
+  $deleteID = $db -> quote($data["deleteID"]);
 
-  $userID = $data["userID"];
-  $deleteWhat = $data["deleteWhat"];
-  $deleteID = $data["deleteID"];
-
-  if ($deleteWhat === 'folder') {
+  if ($deleteWhat === "'folder'") {
     $table_name = 'folders';
-  }else if ($deleteWhat === 'note') {
+  }else if ($deleteWhat === "'note'") {
     $table_name = 'notes';
   }
 
@@ -29,7 +26,6 @@
     $delete_notes_query_merged = "DELETE FROM notes WHERE user=$userID AND folderID=$deleteID";
     $delete_notes = $db -> query($delete_notes_query_merged);
   }
-
 
   // get updated userData
   $data = getUserData($userID);

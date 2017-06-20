@@ -13,7 +13,7 @@ class Modal extends React.Component {
     return (
       <Rodal
         visible={this.props.gModalVisible}
-        onClose={() => this.toggle}
+        onClose={() => this.toggle()}
         animation="zoom"
         height={this.props.gModalHeight}
         width={this.props.gModalWidth}

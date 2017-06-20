@@ -8,11 +8,9 @@
   // get post data
   $data = json_decode(file_get_contents('php://input'), true);
 
-  // Quote and escape form submitted values
-  // $noteTitle = $db -> quote($data["noteTitle"]); !todo escape submitted values
+  $noteID = $db -> quote($data["noteID"]);
+  $user = $db -> quote($data["userID"]);
 
-  $noteID =  $data["noteID"];
-  $user = $data["userID"];
   $query_column_names="title, content";
   $query_table_name = "notes";
   $query_merged="SELECT $query_column_names FROM $query_table_name WHERE user=$user AND id=$noteID";
@@ -26,7 +24,6 @@
   if ($result) {
     echo json_encode($note);
   }else {
-//    echo $query_merged;
     http_response_code(400); // bad request
   }
 ?>
