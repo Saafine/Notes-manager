@@ -1,4 +1,4 @@
-**DEMO**: http://saafine.pe.hu/
+**DEMO**: DELETED
 
 **Description**: simple note organizer made mostly with
-React, React Redux, React-Saga, MySQL and PHP on backend.
+React, Redux, Redux-Saga, MySQL and PHP on backend.
